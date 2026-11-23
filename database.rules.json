@@ -1,12 +1,10 @@
 {
   "rules": {
-    ".read": false,
-    ".write": false,
     "rooms": {
-      "$room": {
+      "$roomId": {
         ".read": "auth != null",
-        ".write": "auth != null && ((!data.exists() && newData.child('host').val() == auth.uid && newData.child('players').child(auth.uid).exists()) || (data.exists() && (data.child('players').child(auth.uid).exists() || (!data.child('started').val() && newData.child('players').child(auth.uid).exists() && newData.child('host').val() == data.child('host').val()))))",
-        ".validate": "newData.hasChildren(['host','players','mode','started','turn','version']) && newData.child('version').isNumber()"
+        ".write": "auth != null",
+        ".validate": "newData.hasChildren(['host','mode','phase','players','turn','round','step','owners','log','createdAt']) && newData.child('players').childrenCount <= 6"
       }
     }
   }
