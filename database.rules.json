@@ -1,10 +1,10 @@
 {
   "rules": {
-    "rooms": {
+    "pixelRooms": {
       ".read": "auth != null",
       "$roomId": {
         ".write": "auth != null",
-        ".validate": "newData.hasChildren(['host','mode','status','players','order']) && newData.child('host').isString() && newData.child('mode').isString() && newData.child('status').isString()"
+        ".validate": "newData.hasChildren(['code', 'mode', 'host', 'status', 'players', 'order', 'turn', 'phase'])"
       }
     }
   }
