@@ -5,6 +5,7 @@ button{font:900 16px "Nunito",system-ui,sans-serif;color:#2a1a00;background:line
 button:active{transform:translateY(3px);box-shadow:0 1px 0 #a06a00}button:disabled{opacity:.45}button.b{background:linear-gradient(#4aa8ff,#1f5fd0);color:#fff;box-shadow:0 4px 0 #123a8a,0 6px 14px rgba(0,0,0,.4)}button.red{background:linear-gradient(#ff7a5a,#d02f1a);color:#fff;box-shadow:0 3px 0 #801a0c;padding:8px 18px;font-size:14px}button.ghost{background:#232b42;color:#dce3f5;box-shadow:0 3px 0 #121726}
 #exit{position:fixed;top:4px;right:8px;z-index:8;padding:4px 14px!important;font-size:13px!important;border-radius:10px!important}
 #sndBtn{position:fixed;top:4px;right:78px;z-index:8;padding:4px 10px!important;font-size:13px!important;border-radius:10px!important;box-shadow:0 3px 0 #121726!important}
+#edBtn{position:fixed;top:4px;right:122px;z-index:8;padding:4px 10px!important;font-size:12px!important;border-radius:10px!important;box-shadow:0 3px 0 #121726!important}
 #chat{position:fixed;left:8px;right:8px;bottom:calc(6px + env(safe-area-inset-bottom,0px));display:none;gap:8px;z-index:7}#chat input{margin:0;padding:9px 12px;font-size:14px;background:#161e33;border-color:#2d3a5e}#chat button{padding:9px 16px;font-size:16px}
 #bar{flex-wrap:wrap;gap:6px!important;position:fixed;left:0;right:0;bottom:calc(56px + env(safe-area-inset-bottom,0px));display:flex;gap:8px;justify-content:center;padding:0 10px;z-index:6}#bar button{flex:1;max-width:210px;display:none;padding:11px 8px;font-size:14px}
 #aucBox{display:none;flex:1;max-width:340px;align-items:center;gap:8px;background:#161e33;border:2px solid #35446e;border-radius:14px;padding:6px 10px}
@@ -12,15 +13,15 @@ button:active{transform:translateY(3px);box-shadow:0 1px 0 #a06a00}button:disabl
 #aucBtn{display:block!important;flex:none!important;padding:9px 14px!important;font-size:13px!important;white-space:nowrap}
 #ov{position:fixed;inset:0;background:#0b1224;z-index:9;overflow:auto;color:#fff;font-size:14px;font-weight:600}.bx{width:min(360px,92vw);margin:0 auto;padding:22px 0 40px}
 h1{font-size:30px;font-weight:800;color:#ffd23f;text-shadow:0 3px 0 #6a4a00;text-align:center;margin:8px 0 2px;letter-spacing:3px}.sub{text-align:center;color:#7f8fb3;margin:0 0 16px;font-size:12px}
-input,select{width:100%;box-sizing:border-box;background:#161e33;border:2px solid #2d3a5e;color:#fff;font:600 16px "Nunito",sans-serif;padding:12px;margin-bottom:10px;border-radius:12px}
+input,select,textarea{width:100%;box-sizing:border-box;background:#161e33;border:2px solid #2d3a5e;color:#fff;font:600 15px "Nunito",sans-serif;padding:10px 12px;margin-bottom:10px;border-radius:12px}
 .r{display:flex;gap:8px}.r input{margin:0}h3{margin:16px 0 8px;font-size:13px;font-weight:600;color:#7f8fb3}.room{display:flex;justify-content:space-between;align-items:center;background:#161e33;border:2px solid #2d3a5e;border-radius:14px;padding:8px 10px;margin-bottom:8px}.room button{padding:8px 12px;font-size:13px}
 #st{position:fixed;left:8px;bottom:2px;font-size:10px;color:#7f8fb3;z-index:10;pointer-events:none}#cd{color:#ffd23f;font-size:26px;letter-spacing:4px}#pl{line-height:1.9;margin:12px 0}.hid{display:none}
 button.wide{width:100%;margin-bottom:8px}#tm{position:fixed;inset:0;background:rgba(4,8,18,.76);z-index:20;display:grid;place-items:center;padding:12px}#tm.hid{display:none}
-.tb{width:min(380px,100%);background:#131b2e;border:2px solid #2e3d66;border-radius:20px;padding:16px;color:#fff;max-height:92vh;overflow:auto;box-shadow:0 16px 40px rgba(0,0,0,.6)}.tb h2{margin:0 0 10px;font-size:18px;font-weight:800;color:#ffd23f}.tb p{margin:6px 0;font-size:14px}
+.tb{width:min(390px,100%);background:#131b2e;border:2px solid #2e3d66;border-radius:20px;padding:16px;color:#fff;max-height:92vh;overflow:auto;box-shadow:0 16px 40px rgba(0,0,0,.6)}.tb h2{margin:0 0 10px;font-size:18px;font-weight:800;color:#ffd23f}.tb p{margin:6px 0;font-size:14px}
 .tcols{display:flex;gap:10px}.tcols>div{flex:1;min-width:0}.tcols h4{margin:0 0 6px;font-size:13px;font-weight:600;color:#9fb0d9}.it{display:flex;align-items:center;gap:6px;font-size:13px;padding:6px 0;border-bottom:1px solid #233052}.it input{width:auto;margin:0;padding:0}.dot{width:10px;height:10px;border-radius:50%;flex:none}
 .cash{display:flex;align-items:center;justify-content:space-between;margin-top:8px}.cash button{padding:4px 14px;font-size:16px}.tbtn{display:flex;gap:8px;margin-top:12px}.tbtn button{flex:1;padding:11px 8px;font-size:14px}
 .tsum{margin-top:10px;padding:8px 10px;border-radius:12px;background:#0c1220;border:1px solid #263459;font-size:12px;line-height:1.45;color:#dce3f5}
-#tbn{position:fixed;top:6px;left:8px;right:124px;z-index:9;display:none;align-items:center;gap:8px;background:#131b2e;border:2px solid #2e3d66;border-radius:12px;padding:4px 8px;font-size:12px;color:#fff}#tbn button{padding:5px 10px;font-size:12px}
+#tbn{position:fixed;top:6px;left:8px;right:156px;z-index:9;display:none;align-items:center;gap:8px;background:#131b2e;border:2px solid #2e3d66;border-radius:12px;padding:4px 8px;font-size:12px;color:#fff}#tbn button{padding:5px 10px;font-size:12px}
 .icard-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
 .icard-badge{display:inline-flex;align-items:center;gap:8px;padding:6px 10px;border-radius:12px;background:#1b2642;font-size:13px;font-weight:800}
 .icard-dot{width:14px;height:14px;border-radius:4px;flex:none}
@@ -35,10 +36,14 @@ button.wide{width:100%;margin-bottom:8px}#tm{position:fixed;inset:0;background:r
 .p-av{width:54px;height:54px;border-radius:50%;object-fit:cover;display:grid;place-items:center;font-size:22px;font-weight:900;color:#fff;flex:none}
 .p-menu-btn{width:100%;text-align:left;padding:12px 14px;border-radius:14px;margin-bottom:8px;box-shadow:none}
 .p-menu-sub{display:block;font-size:12px;font-weight:600;opacity:.82;margin-top:2px}
+.sw-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.sw{width:30px;height:30px;border-radius:9px;border:2px solid transparent;cursor:pointer;padding:0;box-shadow:none}
+.sw.on{border-color:#fff;transform:scale(1.08)}
+.ed-lbl{display:block;font-size:12px;color:#9fb0d9;margin-bottom:4px}
 </style></head><body>
-<canvas id="c"></canvas><div id="bar"><button id="roll">КИНУТИ КУБИКИ</button><button id="buy">КУПИТИ</button><div id="aucBox"><input id="aucRng" type="range" step="50"><button id="aucBtn">СТАВКА</button></div><button id="jb" class="b">ВИКУП 500</button><button id="bld" class="b">ЗБУДУВАТИ</button><button id="end" class="b">ЗАВЕРШИТИ ХІД</button></div><div id="tm" class="hid"></div><div id="tbn"></div><div id="chat"><input id="ci" maxlength="80" placeholder="Написати повідомлення…" autocomplete="off"><button id="cs">➤</button></div><button id="sndBtn" class="ghost" title="Звук">🔊</button><button id="exit" class="red">Вихід</button><div id="st">Авторизація…</div>
+<canvas id="c"></canvas><div id="bar"><button id="roll">КИНУТИ КУБИКИ</button><button id="buy">КУПИТИ</button><div id="aucBox"><input id="aucRng" type="range" step="50"><button id="aucBtn">СТАВКА</button></div><button id="jb" class="b">ВИКУП 500</button><button id="bld" class="b">ЗБУДУВАТИ</button><button id="end" class="b">ЗАВЕРШИТИ ХІД</button></div><div id="tm" class="hid"></div><div id="tbn"></div><div id="chat"><input id="ci" maxlength="80" placeholder="Написати повідомлення…" autocomplete="off"><button id="cs">➤</button></div><button id="edBtn" class="ghost" title="Редактор дошки">🛠 Поле</button><button id="sndBtn" class="ghost" title="Звук">🔊</button><button id="exit" class="red">Вихід</button><div id="st">Авторизація…</div>
 <div id="ov"><div class="bx">
-<div id="lob"><h1>МОНОПОЛІЯ</h1><div class="sub">УКРАЇНА · PIXEL</div><input id="nm" maxlength="20" placeholder="Твоє ім’я"><select id="mode"><option value="classic">Класичний</option><option value="fast">Швидкий</option><option value="rich">Багатій</option><option value="hard">Хардкор</option></select><button id="create" class="wide">СТВОРИТИ КІМНАТУ</button><div class="r"><input id="rc" placeholder="Код кімнати" maxlength="6"><button id="join" class="b">УВІЙТИ</button></div><h3>ВІДКРИТІ КІМНАТИ</h3><div id="rooms">Завантаження…</div></div>
+<div id="lob"><h1>МОНОПОЛІЯ</h1><div class="sub">УКРАЇНА · PIXEL</div><input id="nm" maxlength="20" placeholder="Твоє ім’я"><select id="mode"><option value="classic">Класичний</option><option value="fast">Швидкий</option><option value="rich">Багатій</option><option value="hard">Хардкор</option></select><button id="create" class="wide">СТВОРИТИ КІМНАТУ</button><div class="r"><input id="rc" placeholder="Код кімнати" maxlength="6"><button id="join" class="b">УВІЙТИ</button></div><button id="openMapEd" class="ghost wide">🛠 РЕДАКТОР КАРТИ (ПОДАРУНКИ / СКАРБНИЦІ)</button><h3>ВІДКРИТІ КІМНАТИ</h3><div id="rooms">Завантаження…</div></div>
 <div id="wt" class="hid"><div class="sub">КОД КІМНАТИ</div><div style="text-align:center"><span id="cd"></span></div><div id="pl"></div><button id="start" class="wide">ПОЧАТИ ГРУ</button><button id="back" class="wide b">← ЛОБІ</button><div class="sub">2–6 гравців</div></div>
 <div id="fin" class="hid"><h1 id="win"></h1><div id="stats" class="sub" style="margin-top:8px"></div><button id="back2" class="wide">У ЛОБІ</button></div></div></div>
 <script type="module">
@@ -47,7 +52,9 @@ import{getAuth,signInAnonymously,onAuthStateChanged}from'https://www.gstatic.com
 import{getDatabase,ref,set,onValue,runTransaction,query,limitToLast,push}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 const app=initializeApp({apiKey:'AIzaSyBQNVeXBCqQi5eKhfjAQTJivwKzT9gXT0k',authDomain:'monopoly-fc387.firebaseapp.com',databaseURL:'https://monopoly-fc387-default-rtdb.firebaseio.com',projectId:'monopoly-fc387',storageBucket:'monopoly-fc387.firebasestorage.app',messagingSenderId:'748860996691',appId:'1:748860996691:web:731de9e774cee122991aa6'}),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id),COL=['#e05a5a','#49b87a','#e2b646','#5898dc','#9b6fd6','#e28743'],WL=150,MORT_TURNS=6;
+const PALETTE=['#d66b78','#4b9ad6','#e0a838','#4ba879','#8e6fd4','#e07c48','#5a78d6','#8b95a5','#f3e8ce'];
 const G1='#d66b78',G2='#4b9ad6',G3='#e0a838',G4='#4ba879',G5='#8e6fd4',RAIL_COL='#8b95a5',C_UTL='#8b95a5',C_SPEC='#f3e8ce';
+const STORAGE_KEY='mono_custom_cells_v1';
 const AV={};
 function getTgUser(){
   try{return window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user||null}
@@ -114,7 +121,7 @@ function drawAvatar(cx,cy,r,p,col,initial,isMe){
   x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();
 }
 
-const CELLS=[
+const DEFAULT_CELLS=[
   {i:0,o:0,name:"СТАРТ",price:0,color:C_SPEC,type:"start"},
   {i:1,o:1,name:"Старе місто",price:600,color:G1,type:"property"},
   {i:2,o:2,name:"Квіткова вулиця",price:600,color:G1,type:"property"},
@@ -155,19 +162,64 @@ const CELLS=[
   {i:37,o:38,name:"Скарбниця",price:0,color:C_SPEC,type:"chest"},
   {i:38,o:28,name:"Водоканал",price:1500,color:C_UTL,type:"utility"},
   {i:39,o:35,name:"Метрополітен",price:2000,color:RAIL_COL,type:"rail"}
-],isO=c=>['property','rail','utility'].includes(c.type);
+];
+const VALID_TYPES=['start','property','rail','utility','chance','chest','gift','tax','visit','parking','jail'];
+function loadCustomCells(){
+  try{
+    const raw=localStorage.getItem(STORAGE_KEY);
+    if(!raw)return DEFAULT_CELLS.map(c=>({...c}));
+    const arr=JSON.parse(raw);
+    if(!Array.isArray(arr)||arr.length!==40)return DEFAULT_CELLS.map(c=>({...c}));
+    return DEFAULT_CELLS.map((def,idx)=>{
+      const it=arr[idx]||{};
+      const t=VALID_TYPES.includes(it.type)?it.type:def.type;
+      return {
+        i:idx,
+        o:Number.isFinite(+it.o)?Math.max(0,Math.min(39,+it.o|0)):def.o,
+        name:String(it.name||def.name).slice(0,28),
+        price:isO({type:t})?Math.max(100,Math.round((+it.price||def.price||1000)/50)*50):0,
+        color:typeof it.color==='string'&&/^#[0-9a-fA-F]{3,8}$/.test(it.color)?it.color:def.color,
+        type:t
+      };
+    });
+  }catch(e){return DEFAULT_CELLS.map(c=>({...c}))}
+}
+const CELLS=loadCustomCells();
+function saveCustomCells(){
+  try{localStorage.setItem(STORAGE_KEY,JSON.stringify(CELLS))}catch(e){}
+}
+function resetCustomCells(){
+  DEFAULT_CELLS.forEach((d,idx)=>{CELLS[idx]={...d}});
+  saveCustomCells();
+}
+const isO=c=>['property','rail','utility'].includes(c.type);
 const IM={};
 const noE=s=>String(s||'').replace(/\s+/g,' ').trim(),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-CELLS.forEach(c=>{const im=new Image();im.onload=()=>{IM[c.i]=im};im.src='tiles/'+c.o+'.png'});
+for(let k=0;k<40;k++){const im=new Image();im.onload=()=>{IM[k]=im};im.src='tiles/'+k+'.png'}
+const cellPic=cell=>IM[cell.o]||null;
 const cv=$('c'),x=cv.getContext('2d'),FN='"Nunito",system-ui,sans-serif';
 let W,H,DPR,U,HL,CS,tw,th,BY=46,ix,iy,iw,ih,ixL,iyL,iwL,ihL;
 function fit(){DPR=Math.min(3,window.devicePixelRatio||1);W=innerWidth;H=innerHeight-142;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);cv.style.width=W+'px';cv.style.height=H+'px';x.setTransform(DPR,0,0,DPR,0,0);let n=2;try{n=g&&g.order?g.order.length:2}catch(e){}const cl=n<=3?n:n==4?2:3;BY=34+Math.ceil(n/cl)*54+2;const Hb=H-BY-4;CS=Math.round(Math.min(W*.22,(Hb-11*30)/2));tw=(W-2*CS)/7;th=(Hb-2*CS)/11;ix=CS;iy=BY+CS;iw=W-2*CS;ih=11*th;U=W/150;HL=H/U;ixL=ix/U;iyL=iy/U;iwL=iw/U;ihL=ih/U}fit();addEventListener('resize',fit);
 function R(i){if(i==0)return{x:0,y:BY,w:CS,h:CS,s:'c'};if(i<=7)return{x:CS+(i-1)*tw,y:BY,w:tw,h:CS,s:'t'};if(i==8)return{x:W-CS,y:BY,w:CS,h:CS,s:'c'};if(i<=19)return{x:W-CS,y:BY+CS+(i-9)*th,w:CS,h:th,s:'r'};if(i==20)return{x:W-CS,y:BY+CS+11*th,w:CS,h:CS,s:'c'};if(i<=27)return{x:CS+(27-i)*tw,y:BY+CS+11*th,w:tw,h:CS,s:'b'};if(i==28)return{x:0,y:BY+CS+11*th,w:CS,h:CS,s:'c'};return{x:0,y:BY+CS+(39-i)*th,w:CS,h:th,s:'l'}}
-let sel=null,modalView=null,lastSend=0,uid='',room='',g=null,unG=null,unR=null,first=true,lastRid=null,vp={},hop=0,hopId=null,mvT=0,AC=null,D=null,wb=false,resolvingAuc=false,lastAucKey='';
+let sel=null,modalView=null,editMode=false,lastSend=0,uid='',room='',g=null,unG=null,unR=null,first=true,lastRid=null,vp={},hop=0,hopId=null,mvT=0,AC=null,D=null,wb=false,resolvingAuc=false,lastAucKey='';
 let soundOn=(()=>{try{return localStorage.getItem('mono_snd')!=='0'}catch(e){return true}})();
 function syncSndBtn(){const b=$('sndBtn');if(!b)return;b.textContent=soundOn?'🔊':'🔇';b.style.opacity=soundOn?'1':'.65'}
 syncSndBtn();
 $('sndBtn').onclick=()=>{soundOn=!soundOn;try{localStorage.setItem('mono_snd',soundOn?'1':'0')}catch(e){}syncSndBtn();if(soundOn)snd(580,.07,'triangle')};
+function openMapEditor(idx){
+  if(typeof idx==='number')sel=idx;
+  else if(sel==null)sel=1;
+  editMode=true;
+  modalView='editor';
+  trRender();
+}
+$('edBtn').onclick=()=>openMapEditor(sel!=null?sel:1);
+$('openMapEd').onclick=()=>{
+  if(!g){
+    g={status:'waiting',order:[],players:{},owners:{},logs:[]};
+  }
+  openMapEditor(sel!=null?sel:1);
+};
 const cur=G=>G&&G.order&&G.order.length?G.order[G.turn%G.order.length]:'';
 const oidx=i=>g&&g.owners&&g.owners[i]!=null?g.order.indexOf(g.owners[i]):-1;
 function snd(f,d,t){if(!soundOn)return;if(!AC)try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){return}if(AC.state=='suspended')AC.resume().catch(()=>{});try{const o=AC.createOscillator(),n=AC.createGain();o.type=t||'square';o.frequency.value=f;n.gain.value=.06;n.gain.exponentialRampToValueAtTime(.0001,AC.currentTime+d);o.connect(n);n.connect(AC.destination);o.start();o.stop(AC.currentTime+d)}catch(e){}}
@@ -186,14 +238,15 @@ else if(k=='plane')poly([[0,-.5],[.07,-.22],[.5,.08],[.5,.18],[.08,.06],[.06,.3]
 else if(k=='bolt')poly([[.12,-.5],[-.26,.06],[-.02,.06],[-.14,.5],[.28,-.1],[.04,-.1]],cx,cy,s,'#e3b23c','#6e5010');
 else if(k=='q'){x.font='800 '+s*1.25+'px '+FN;x.textAlign='center';x.textBaseline='middle';const gr=x.createLinearGradient(0,cy-s/2,0,cy+s/2);gr.addColorStop(0,'#54b878');gr.addColorStop(1,'#2d8251');x.fillStyle=gr;x.fillText('?',cx,cy+s*.04)}
 else if(k=='bag'){x.fillStyle='#c79a3a';x.beginPath();x.arc(cx,cy+.14*s,.34*s,0,7);x.fill();x.strokeStyle='#6a4a10';x.lineWidth=1.2;x.stroke();rr(cx-.14*s,cy-.28*s,.28*s,.16*s,2,'#a67c2a');T('₴',cx,cy+.16*s,'#5a3a00',s*.4,'center',600)}
+else if(k=='gift'){x.fillStyle='#e05a7a';rr(cx-.34*s,cy-.1*s,.68*s,.46*s,2,'#e05a7a','#6a1d32',1);rr(cx-.38*s,cy-.22*s,.76*s,.14*s,2,'#f27996','#6a1d32',1);x.fillStyle='#ffd23f';x.fillRect(cx-.06*s,cy-.22*s,.12*s,.58*s)}
 else if(k=='tax'){x.fillStyle='#cc5a4e';x.beginPath();x.arc(cx,cy,.4*s,0,7);x.fill();x.strokeStyle='#7a241d';x.lineWidth=1.5;x.stroke();T('%',cx,cy+s*.02,'#fff',s*.55,'center',600)}
 else if(k=='flag'){x.strokeStyle='#4a3a2a';x.lineWidth=Math.max(2,s*.07);x.beginPath();x.moveTo(cx-.4*s,cy-.5*s);x.lineTo(cx-.4*s,cy+.5*s);x.stroke();for(let r=0;r<4;r++)for(let q=0;q<6;q++){x.fillStyle=(r+q)%2?'#fff':'#1e2433';x.fillRect(cx-.36*s+q*.12*s,cy-.5*s+r*.12*s+Math.sin(q*.9)*.03*s,.12*s,.12*s)}}
 else if(k=='bars'){rr(cx-.4*s,cy-.4*s,.8*s,.8*s,3,'#8a8f99','#333',1.5);x.fillStyle='#222';for(let i=0;i<4;i++)x.fillRect(cx-.3*s+i*.2*s,cy-.34*s,.07*s,.68*s)}
 else if(k=='park'){x.fillStyle='#3f7ec2';x.beginPath();x.arc(cx,cy,.42*s,0,7);x.fill();x.strokeStyle='#fff';x.lineWidth=2;x.stroke();T('P',cx,cy+s*.03,'#fff',s*.6,'center',600)}
 else if(k=='siren'){rr(cx-.34*s,cy+.16*s,.68*s,.22*s,2,'#555');x.fillStyle='#cc4743';x.beginPath();x.arc(cx,cy+.16*s,.3*s,Math.PI,0);x.fill();x.strokeStyle='#7a1010';x.lineWidth=1.2;x.stroke();x.fillStyle='#ffffff88';x.fillRect(cx-.12*s,cy-.08*s,.07*s,.2*s)}
 x.restore()}
-function pic(cell,k,cx,cy,s,col){const im=IM[cell.i];if(im){const q=Math.min(s*1.68/im.width,s*1.68/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.2,col)}
-const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
+function pic(cell,k,cx,cy,s,col){const im=cellPic(cell);if(im){const q=Math.min(s*1.68/im.width,s*1.68/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.2,col)}
+const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',gift:'gift',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
 const taxAmt=G=>G&&G.mode=='hard'?2000:1000;
 function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return String(rentOf(g,cell.i))}
 function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#1c253b';x.fillText(s,0,0);x.restore()}
@@ -206,19 +259,19 @@ else if(s=='b'){x.fillRect(X+1,Y+h-1-tg,w-2,tg);x.fillStyle=cell.color;x.fillRec
 else if(s=='l'){x.fillRect(X+1,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+1+tg-barW,Y+1,barW,h-2);drawTagText(tagText,X+1+(tg-barW)/2,Y+h/2,h-3,-Math.PI/2);cx0+=tg;cw-=tg}
 else{x.fillRect(X+w-1-tg,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+w-1-tg,Y+1,barW,h-2);drawTagText(tagText,X+w-1-barW-(tg-barW)/2,Y+h/2,h-3,Math.PI/2);cw-=tg}}
 const k=cell.type=='property'?STY[gstyle(cell.color)]:KIND[cell.type];
-if(s=='c'){pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.62,cell.color);T(LBL[cell.type]||'',X+w/2,Y+h-10,'#3b352a',Math.max(8.5,w*.115),'center',800)}
-else if(!ow){pic(cell,k,X+w/2,Y+h/2,Math.min(w,h)*.96,cell.color)}
+if(s=='c'){pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.62,cell.color);T(LBL[cell.type]||cut(cell.name,w-6),X+w/2,Y+h-10,'#3b352a',Math.max(8.5,w*.115),'center',800)}
+else if(!ow){pic(cell,k,X+w/2,Y+h/2,Math.min(w,h)*.96,cell.color);if(cell.type=='gift')T('🎁',X+w-8,Y+9,'#e05a7a',9.5,'center',800)}
 else{pic(cell,k,cx0+cw/2,cy0+ch/2,Math.min(cw,ch)*1.06,cell.color)}
 if(oi>=0){const pcol=COL[oi%6];rr(X+1.5,Y+1.5,w-3,h-3,4,null,pcol,2.4);const hs=(g.houses&&g.houses[cell.i])||0;if(hs>=5)rr(cx0+3,cy0+3,11,11,2.5,pcol,'#111',1.5);else for(let q=0;q<hs;q++)rr(cx0+3+q*8.5,cy0+3,7.5,7.5,1.5,pcol,'#111',1.2);if(cell.type=='property'&&fullSet(g,cell.i))T('★',cx0+cw-8,cy0+ch-8,pcol,12,'center',800)}
 if(ml>0){x.globalAlpha=.68;rr(X+1,Y+1,w-2,h-2,4,'#161b29');x.globalAlpha=1;T('🏦 '+ml,X+w/2,Y+h/2,'#ffd23f',Math.max(9,Math.min(w,h)*.28),'center',800)}
-if(sel===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,'#ffffff',2.2);if(g.phase=='auction'&&g.auction&&g.auction.i===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,'#ffd23f',3.2)}
+if(sel===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,editMode?'#4aa8ff':'#ffffff',2.4);if(g.phase=='auction'&&g.auction&&g.auction.i===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,'#ffd23f',3.2)}
 function dice(d){const sc=d.rest?1:1+.012*Math.min(28,d.z),s=Math.round(16*sc),px=d.x,py=d.y-d.z*.58;x.fillStyle='rgba(0,0,0,'+(d.rest?.34:Math.max(.14,.34-d.z*.005))+')';x.beginPath();x.ellipse(d.x,d.y+6,7.5,3,0,0,7);x.fill();x.save();x.translate(px,py);x.rotate(d.rest?0:d.a);const gr=x.createLinearGradient(-s/2,-s/2,s/2,s/2);gr.addColorStop(0,'#ffffff');gr.addColorStop(1,'#e2d2a6');rr(-s/2,-s/2,s,s,3.5,gr,d.rest?'#7c6533':'#ffd23f',d.rest?1:1.3);x.fillStyle=d.v==1?'#c8281e':'#2a2118';PIPS[d.v].forEach(q=>{x.beginPath();x.arc(q[0]*s/4,q[1]*s/4,s*.078+.35,0,7);x.fill()});x.restore()}
 const PIPS=[0,[[0,0]],[[-1,-1],[1,1]],[[-1,-1],[0,0],[1,1]],[[-1,-1],[1,-1],[-1,1],[1,1]],[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],[[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[1,1]]];
 let fitN=0;
 function segs(t){const names=g.order.map((id,i)=>[noE(g.players[id]&&g.players[id].name),COL[i%6]]).filter(n=>n[0]).sort((a,b)=>b[0].length-a[0].length),out=[];let rest=String(t);while(rest){let best=-1,bn=null;for(const n of names){const k=rest.indexOf(n[0]);if(k>=0&&(best<0||k<best)){best=k;bn=n}}if(best<0){out.push([rest,'#e2e8f8',0]);break}if(best>0)out.push([rest.slice(0,best),'#e2e8f8',0]);out.push([bn[0],bn[1],0]);rest=rest.slice(best+bn[0].length)}return out}
 function wrapEv(t,mw){const toks=[];segs(t).forEach(([s,c])=>s.split(/(\s+)/).forEach(w=>{if(w)toks.push([w,c])}));const lines=[[]];let wd=0;toks.forEach(([w,c])=>{x.font='600 13px '+FN;const ww=x.measureText(w).width,sp=!w.trim();if(sp&&wd==0)return;if(!sp&&wd+ww>mw&&wd>0){lines.push([]);wd=0}lines[lines.length-1].push([w,c,ww]);wd+=ww});return lines}
 function draw(){if(g&&g.order&&g.order.length!==fitN){fitN=g.order.length;fit()}
-const bg=x.createRadialGradient(W/2,H*.38,20,W/2,H*.38,H*.85);bg.addColorStop(0,'#1e2a4a');bg.addColorStop(1,'#090e1c');x.fillStyle=bg;x.fillRect(0,0,W,H);if(!g||g.status=='waiting')return;
+const bg=x.createRadialGradient(W/2,H*.38,20,W/2,H*.38,H*.85);bg.addColorStop(0,'#1e2a4a');bg.addColorStop(1,'#090e1c');x.fillStyle=bg;x.fillRect(0,0,W,H);if(!g||g.status=='waiting'){CELLS.forEach(tile);return}
 T('Кімната '+room+' · Коло '+Math.max(1,(g.round||1)),10,17,'#96a7cf',12,'left',700);
 g.order.forEach((id,i)=>{const p=g.players[id];if(!p)return;const r=cardRect(i),col=COL[i%6],act=cur(g)==id&&g.status=='playing';x.globalAlpha=p.alive?1:.45;
 if(act){x.shadowColor='#ffd23f';x.shadowBlur=10}rr(r.x,r.y,r.w,r.h,13,'#141c30',act?'#ffd23f':'#2a385c',act?2.5:1.5);x.shadowBlur=0;
@@ -244,24 +297,24 @@ function toss(fa,fb){const cx=ixL+iwL/2,cy=iyL+ihL/2;D=[0,1].map(k=>({f:k?fb:fa,
 const dDone=()=>!D||D.every(d=>d.rest),anim=()=>!!g&&(!dDone()||hop>0||g.order.some(id=>g.players[id]&&g.players[id].alive&&vp[id]!==undefined&&vp[id]!==g.players[id].pos));
 function upd(){if(!g)return;if(D&&!dDone()){D.forEach(step);coll()}
 if(dDone()){mvT++;if(hop>0)hop--;g.order.forEach(id=>{const p=g.players[id];if(!p)return;if(vp[id]===undefined||!p.alive||(p.pos-vp[id]+40)%40>12)vp[id]=p.pos});if(mvT%12==0){for(const id of g.order){const p=g.players[id];if(p&&p.alive&&vp[id]!==p.pos){vp[id]=(vp[id]+1)%40;hopId=id;hop=10;snd(480,.05);break}}}}
-const me=g.players&&g.players[uid],my=g.status=='playing'&&cur(g)==uid&&!anim(),cl=CELLS[me?me.pos:0];
+const me=g&&g.players&&g.players[uid],my=g&&g.status=='playing'&&cur(g)==uid&&!anim(),cl=CELLS[me?me.pos:0];
 $('roll').style.display=my&&g.phase=='roll'?'block':'none';$('buy').style.display=my&&g.phase=='buy'?'block':'none';$('end').style.display=my&&(g.phase=='buy'||g.phase=='end')?'block':'none';
-$('bld').style.display=my&&sel!=null&&canBuild(g,uid,sel)?'block':'none';if(sel!=null&&CELLS[sel])$('bld').textContent='ЗБУДУВАТИ '+hcost(CELLS[sel]);$('chat').style.display=g.status=='playing'&&me?'flex':'none';
-{const au=g.phase=='auction'&&g.auction,can=au&&me&&me.alive&&au.leader!==uid&&now()<au.end,box=$('aucBox'),rng=$('aucRng'),btn=$('aucBtn');
+$('bld').style.display=my&&sel!=null&&canBuild(g,uid,sel)?'block':'none';if(sel!=null&&CELLS[sel])$('bld').textContent='ЗБУДУВАТИ '+hcost(CELLS[sel]);$('chat').style.display=g&&g.status=='playing'&&me?'flex':'none';
+{const au=g&&g.phase=='auction'&&g.auction,can=au&&me&&me.alive&&au.leader!==uid&&now()<au.end,box=$('aucBox'),rng=$('aucRng'),btn=$('aucBtn');
 if(can){const minBid=Math.max(au.min,(au.bid||0)+50),maxBid=Math.floor(me.balance/50)*50;
 if(maxBid>=minBid){box.style.display='flex';const key=au.i+':'+minBid+':'+maxBid;if(key!==lastAucKey){lastAucKey=key;rng.min=minBid;rng.max=maxBid;rng.value=minBid}
 const val=Math.min(maxBid,Math.max(minBid,+rng.value||minBid));rng.value=val;btn.textContent='СТАВКА '+val+' ₴';btn.disabled=false}else box.style.display='none'}
 else{box.style.display='none';lastAucKey=''}
 if(au&&now()>au.end+(uid==cur(g)?0:1200)&&!wb&&!resolvingAuc&&++aT%15==0)resolveAuction()}
 {const c=sel!=null?CELLS[sel]:null,ok=my&&c&&isO(c)&&g.owners&&g.owners[sel]===uid&&g.phase!='auction'&&!((g.houses&&g.houses[sel])||0);$('jb').style.display=my&&me&&me.jail>0&&g.phase=='roll'?'block':'none';if(me)$('jb').disabled=me.balance<JAIL_FEE;void ok}
-$('end').textContent=g.phase=='buy'?'АУКЦІОН (ПАС)':'ЗАВЕРШИТИ ХІД';
+if(g){$('end').textContent=g.phase=='buy'?'АУКЦІОН (ПАС)':'ЗАВЕРШИТИ ХІД'}
 if(me){$('buy').textContent='КУПИТИ '+cl.price;$('buy').disabled=me.balance<cl.price}}
 let last=0,acc=0;function loop(t){acc+=Math.min(50,t-last);last=t;while(acc>=16.67){upd();acc-=16.67}draw();requestAnimationFrame(loop)}requestAnimationFrame(t=>{last=t;loop(t)});
-const TYPE_LBL={start:'Старт',property:'Нерухомість',rail:'Транспорт',utility:'Інфраструктура',chance:'Картка Шанс',chest:'Картка Скарбниця',tax:'Податок',visit:'Відвідування',parking:'Парковка',jail:'Арешт'};
-function openCellInfo(i){sel=i;modalView='cell';trRender()}
+const TYPE_LBL={start:'Старт',property:'Нерухомість',rail:'Транспорт',utility:'Інфраструктура',chance:'Картка Шанс',chest:'Картка Скарбниця',gift:'Подарунок',tax:'Податок',visit:'Відвідування',parking:'Парковка',jail:'Арешт'};
+function openCellInfo(i){sel=i;modalView=editMode?'editor':'cell';trRender()}
 function openPlayerMenu(){modalView='player';trRender()}
-cv.addEventListener('pointerdown',e=>{if(!g||!g.players)return;const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;if(cardHit(px,py))return;const z=CELLS.find(c=>{const q=R(c.i);return px>=q.x&&px<q.x+q.w&&py>=q.y&&py<q.y+q.h});if(!z)return;openCellInfo(z.i)});
-const JAIL_FEE=500,jailPos=()=>CELLS.find(c=>c.type=='visit').i;
+cv.addEventListener('pointerdown',e=>{if(!g)return;const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;if(g.players&&cardHit(px,py))return;const z=CELLS.find(c=>{const q=R(c.i);return px>=q.x&&px<q.x+q.w&&py>=q.y&&py<q.y+q.h});if(!z)return;openCellInfo(z.i)});
+const JAIL_FEE=500,jailPos=()=>CELLS.find(c=>c.type=='visit')?.i??8;
 const mortLeft=(G,i)=>(G&&G.mort&&G.mort[i])||0;
 const isMg=(G,i)=>mortLeft(G,i)>0;
 function tickMortgages(G){
@@ -305,10 +358,17 @@ const CHEST=[
   {t:'Премія зі скарбниці: +1500 ₴',fn:(G,id)=>{G.players[id].balance+=1500}},
   {t:'Непередбачені витрати: −400 ₴',fn:(G,id)=>transfer(G,id,null,400)}
 ];
+const GIFT=[
+  {t:'Святковий бонус: +800 ₴ від банку',fn:(G,id)=>{G.players[id].balance+=800}},
+  {t:'Кожен гравець дарує тобі +300 ₴',fn:(G,id)=>{G.order.forEach(oid=>{if(oid!==id&&G.players[oid]&&G.players[oid].alive){const before=G.players[oid].balance;transfer(G,oid,id,300);const got=Math.max(0,before-G.players[oid].balance);if(!got&&G.players[oid].alive)G.players[id].balance+=300}})}},
+  {t:'Подарунковий сертифікат: +1200 ₴',fn:(G,id)=>{G.players[id].balance+=1200}},
+  {t:'Щасливий конверт: +500 ₴',fn:(G,id)=>{G.players[id].balance+=500}}
+];
 function land(G,id){const p=G.players[id];if(!p||!p.alive)return;const c=CELLS[p.pos];L(G,p.name+' → '+c.name);const tx=taxAmt(G),sal=G.mode=='fast'?1000:2000;
 if(c.type=='tax'){transfer(G,id,null,tx);L(G,'Податок −'+tx+' ₴')}
 else if(c.type=='chance'){const ev=CHANCE[Math.random()*CHANCE.length|0];ev.fn(G,id,sal);L(G,'Шанс: '+ev.t)}
 else if(c.type=='chest'){const ev=CHEST[Math.random()*CHEST.length|0];ev.fn(G,id,sal);L(G,'Скарбниця: '+ev.t)}
+else if(c.type=='gift'){const ev=GIFT[Math.random()*GIFT.length|0];ev.fn(G,id,sal);L(G,'Подарунок: '+ev.t)}
 else if(c.type=='jail'){toJail(G,id);L(G,p.name+' іде у в’язницю')}
 else if(isO(c)){const o=G.owners&&G.owners[p.pos];if(o&&o!==id&&G.players[o]&&G.players[o].alive){const r=rentOf(G,p.pos);if(r>0){transfer(G,id,o,r);L(G,'Списано −'+r+' ₴ → '+pn(G,o)+' (залишок '+Math.max(0,Math.round(p.balance))+' ₴)')}else L(G,'Ділянка в заставі — вступ безкоштовний')}}}
 async function mutate(fn){if(wb||!room)return;wb=true;try{await runTransaction(ref(db,'pixelRooms/'+room),G=>{if(!G)return;return fn(G)===false?undefined:G},{applyLocally:false})}catch(e){L(g||{logs:[]},'Помилка: '+e.message)}finally{wb=false}}
@@ -337,6 +397,20 @@ function cardRect(i){const n=g.order.length,cl=n<=3?n:n==4?2:3,cw=(W-12)/cl;retu
 function cardHit(px,py){if(g.status!='playing'||!g.players||!g.players[uid]||!g.players[uid].alive||tdr||modalView||(g.trade&&g.trade.status=='pending'))return false;for(let i=0;i<g.order.length;i++){const id=g.order[i],r=cardRect(i);if(g.players[id]&&g.players[id].alive&&px>=r.x&&px<r.x+r.w&&py>=r.y&&py<r.y+r.h){if(id===uid){openPlayerMenu();return true}tdr={to:id,give:new Set(),ask:new Set(),gc:0,ac:0};trRender();return true}}return false}
 const nmz=n=>esc(noE(n)),list=(ids,sel,side)=>ids.map(i=>'<label class="it"><input type="checkbox" data-s="'+side+'" data-i="'+i+'"'+(sel&&sel.has(i)?' checked':'')+'><span class="dot" style="background:'+CELLS[i].color+'"></span>'+nmz(CELLS[i].name)+' · '+CELLS[i].price+'</label>').join('')||'<small>немає ділянок</small>',
 desc=(ids,c)=>[...(ids||[]).map(i=>nmz(CELLS[i].name)),...(c?[c+' ₴']:[])].join(', ')||'нічого';
+function editorHtml(i){
+  const c=CELLS[i]||CELLS[1];
+  const typeOpts=VALID_TYPES.map(t=>'<option value="'+t+'"'+(c.type===t?' selected':'')+'>'+esc(TYPE_LBL[t]||t)+'</option>').join('');
+  const picOpts=Array.from({length:40},(_,k)=>'<option value="'+k+'"'+(c.o===k?' selected':'')+'>Іконка #'+(k+1)+' (tiles/'+k+'.png)</option>').join('');
+  const swatches=PALETTE.map(col=>'<button type="button" class="sw'+(c.color.toLowerCase()===col.toLowerCase()?' on':'')+'" style="background:'+col+'" data-ed-col="'+col+'"></button>').join('');
+  return '<div class="tb"><div class="icard-top"><span class="icard-badge"><span class="icard-dot" style="background:'+esc(c.color)+'"></span>Клітинка #'+(i+1)+' (індекс '+i+')</span><button class="icard-x" data-a="ed_close">✕</button></div>'+
+    '<div class="sub" style="text-align:left;margin:0 0 10px">Клікни на будь-яку клітинку на полі, щоб налаштувати її. Зміни зберігаються автоматично.</div>'+
+    '<label class="ed-lbl">Назва</label><input id="edName" maxlength="28" value="'+esc(c.name)+'">'+
+    '<label class="ed-lbl">Тип клітинки</label><select id="edType">'+typeOpts+'</select>'+
+    '<div class="r"><div><label class="ed-lbl">Ціна (₴)</label><input id="edPrice" type="number" step="50" min="50" max="20000" value="'+(c.price||1000)+'"></div><div><label class="ed-lbl">Картинка</label><select id="edPic">'+picOpts+'</select></div></div>'+
+    '<label class="ed-lbl">Колір групи / сету</label><div class="sw-row">'+swatches+'</div>'+
+    '<div class="tbtn"><button data-a="ed_apply">Зберегти клітинку</button><button class="b" data-a="ed_export">JSON</button></div>'+
+    '<div class="tbtn"><button class="ghost" data-a="ed_reset">Скинути карту</button><button class="ghost" data-a="ed_close">Готово</button></div></div>';
+}
 function cellCardHtml(i){const c=CELLS[i];if(!c)return '';const owId=g.owners&&g.owners[i],ow=owId&&g.players&&g.players[owId]?noE(g.players[owId].name):(isO(c)?'Вільна (банк)':'Банк / Подія'),ml=mortLeft(g,i),hs=(g.houses&&g.houses[i])||0,tx=taxAmt(g),sal=g.mode=='fast'?1000:2000;
 let costLbl='Вартість',costVal='—',effectLbl='Вхід / Оренда',effectVal='—',stTxt='Спеціальна клітинка';
 if(isO(c)){
@@ -355,28 +429,75 @@ if(isO(c)){
   costLbl='Викуп з арешту';costVal=JAIL_FEE.toLocaleString('uk')+' ₴';
   effectLbl='Правило';effectVal=c.type=='jail'?'Перехід у в’язницю на 3 ходи':'Вихід за дубль або 500 ₴';
   stTxt=c.type=='jail'?'Арешт':'В’язниця';
-}else if(c.type=='chance'||c.type=='chest'){
+}else if(c.type=='chance'||c.type=='chest'||c.type=='gift'){
   costLbl='Ефект';costVal='Випадкова картка';
-  effectLbl='Можлива зміна';effectVal='Від −900 ₴ до +1 500 ₴';
-  stTxt='Колода карток';
+  effectLbl='Можлива зміна';effectVal=c.type=='gift'?'Від +500 ₴ до +1 200 ₴ / гравці':'Від −900 ₴ до +1 500 ₴';
+  stTxt='Картка події';
 }else if(c.type=='parking'){
   costLbl='Оплата';costVal='0 ₴';
   effectLbl='Ефект';effectVal='Безкоштовна зупинка';
   stTxt='Вільна зона';
 }
 let acts='';if(isO(c)&&owId===uid&&g.phase!='auction'){const mgd=isMg(g,i),meP=g.players[uid];if(!mgd&&!hs){const v=Math.round(c.price/2);acts+='<button class="b" data-a="m_take" data-i="'+i+'">Заставити (+'+v+' ₴)</button>'}else if(mgd){const cost=Math.round(c.price*.55);acts+='<button data-a="m_red" data-i="'+i+'" '+(meP.balance<cost?'disabled':'')+'>Викупити (−'+cost+' ₴)</button>'}if(canBuild(g,uid,i))acts+='<button data-a="c_bld" data-i="'+i+'">Збудувати (−'+hcost(c)+' ₴)</button>'}
-return '<div class="tb"><div class="icard-top"><span class="icard-badge"><span class="icard-dot" style="background:'+esc(c.color)+'"></span>'+nmz(c.name)+'</span><button class="icard-x" data-a="close_m">✕</button></div><div class="icard-grid"><div class="icard-box"><div class="icard-k">Тип</div><div class="icard-v">'+esc(TYPE_LBL[c.type]||c.type)+'</div></div><div class="icard-box"><div class="icard-k">'+esc(costLbl)+'</div><div class="icard-v">'+esc(costVal)+'</div></div><div class="icard-box"><div class="icard-k">Власник</div><div class="icard-v">'+esc(ow)+'</div></div><div class="icard-box"><div class="icard-k">'+esc(effectLbl)+'</div><div class="icard-v">'+esc(effectVal)+'</div></div><div class="icard-box"><div class="icard-k">Стан</div><div class="icard-v">'+esc(stTxt)+'</div></div><div class="icard-box"><div class="icard-k">Позиція</div><div class="icard-v">Клітинка #'+(i+1)+'</div></div></div>'+(acts?'<div class="icard-acts">'+acts+'</div>':'')+'</div>'}
+acts+='<button class="ghost" data-a="open_ed" data-i="'+i+'">🛠 Налаштувати клітинку</button>';
+return '<div class="tb"><div class="icard-top"><span class="icard-badge"><span class="icard-dot" style="background:'+esc(c.color)+'"></span>'+nmz(c.name)+'</span><button class="icard-x" data-a="close_m">✕</button></div><div class="icard-grid"><div class="icard-box"><div class="icard-k">Тип</div><div class="icard-v">'+esc(TYPE_LBL[c.type]||c.type)+'</div></div><div class="icard-box"><div class="icard-k">'+esc(costLbl)+'</div><div class="icard-v">'+esc(costVal)+'</div></div><div class="icard-box"><div class="icard-k">Власник</div><div class="icard-v">'+esc(ow)+'</div></div><div class="icard-box"><div class="icard-k">'+esc(effectLbl)+'</div><div class="icard-v">'+esc(effectVal)+'</div></div><div class="icard-box"><div class="icard-k">Стан</div><div class="icard-v">'+esc(stTxt)+'</div></div><div class="icard-box"><div class="icard-k">Позиція</div><div class="icard-v">Клітинка #'+(i+1)+'</div></div></div><div class="icard-acts">'+acts+'</div></div>'}
 function playerMenuHtml(){const p=g.players&&g.players[uid];if(!p)return '';const idx=g.order.indexOf(uid),col=COL[Math.max(0,idx)%6],ph=(p.photo)||(getTgPhoto()||''),av=ph?'<img class="p-av" style="border:2px solid '+col+'" src="'+esc(ph)+'">':'<div class="p-av" style="background:'+col+'">'+esc((Array.from(noE(p.name))[0]||'?').toUpperCase())+'</div>',ownedCnt=Object.values(g.owners||{}).filter(xid=>xid===uid).length,mortCnt=Object.keys(g.mort||{}).filter(k=>(g.owners||{})[k]===uid&&mortLeft(g,+k)>0).length,myTurn=g.status=='playing'&&cur(g)==uid;
 return '<div class="tb"><div class="icard-top"><span style="font-size:11px;letter-spacing:1px;color:#8ea0c9;font-weight:800">ВАШ ГРАВЕЦЬ</span><button class="icard-x" data-a="close_m">✕</button></div><div class="p-head">'+av+'<div><div style="font-size:18px;font-weight:900;color:#fff">'+nmz(p.name)+'</div><div style="font-size:15px;font-weight:800;color:#6be07a">'+Math.max(0,Math.round(p.balance)).toLocaleString('uk')+' ₴</div></div></div><button class="ghost p-menu-btn" data-a="p_stat">Профіль<span class="p-menu-sub">Ділянок: '+ownedCnt+' · В заставі: '+mortCnt+' · Кіл: '+(p.laps||0)+'</span></button><button class="ghost p-menu-btn" data-a="p_mort">Застава та викуп<span class="p-menu-sub">Керування заставою ваших ділянок ('+mortCnt+' активних)</span></button><button class="ghost p-menu-btn" data-a="p_surr" '+(myTurn?'':'disabled')+'>Здатися<span class="p-menu-sub">'+(myTurn?'Вийти з партії та передати майно банку':'Доступно лише під час вашого ходу')+'</span></button></div>'}
 function trRender(){const tm=$('tm'),bn=$('tbn'),t=g&&g.trade;bn.style.display='none';
-if(!g||g.status!='playing'){modalView=null;tm.classList.add('hid');return}
+if(modalView=='editor'&&sel!=null){
+  if(g&&g.status=='waiting')$('ov').style.display='none';
+  tm.classList.remove('hid');tm.innerHTML=editorHtml(sel);return;
+}
+if(!g||g.status!='playing'){modalView=null;tm.classList.add('hid');if(g&&g.status=='waiting'&&!editMode)$('ov').style.display='block';return}
 if(t&&t.status=='pending'&&t.to===uid){modalView=null;tm.classList.remove('hid');tm.innerHTML='<div class="tb"><h2>Обмін від '+nmz(g.players[t.from].name)+'</h2><p>Віддає тобі: <span>'+desc(t.give,t.gc)+'</span></p><p>Просить у тебе: <span>'+desc(t.ask,t.ac)+'</span></p><div class="tbtn"><button data-a="yes">Прийняти</button><button class="b" data-a="no">Відхилити</button></div></div>';return}
 if(modalView=='cell'&&sel!=null){tm.classList.remove('hid');tm.innerHTML=cellCardHtml(sel);return}
 if(modalView=='player'){tm.classList.remove('hid');tm.innerHTML=playerMenuHtml();return}
 if(tdr){const o=g.players&&g.players[tdr.to];if(!o||!o.alive){tdr=null;tm.classList.add('hid');return}tm.classList.remove('hid');tm.innerHTML='<div class="tb"><h2>Обмін з '+nmz(o.name)+'</h2><div class="tcols"><div><h4>Віддаєш</h4>'+list(tcells(g,uid),tdr.give,'g')+'<div class="cash"><button data-a="gm">−</button><span>'+tdr.gc+' ₴</span><button data-a="gp">+</button></div></div><div><h4>Просиш</h4>'+list(tcells(g,tdr.to),tdr.ask,'a')+'<div class="cash"><button data-a="am">−</button><span>'+tdr.ac+' ₴</span><button data-a="ap">+</button></div></div></div><div class="tsum">Ти віддаєш: <span>'+desc([...tdr.give],tdr.gc)+'</span><br>Ти отримуєш: <span>'+desc([...tdr.ask],tdr.ac)+'</span></div><div class="tbtn"><button data-a="send">Запропонувати</button><button class="b" data-a="cancel">Скасувати</button></div></div>';return}
 tm.classList.add('hid');if(t&&t.from===uid){bn.style.display='flex';bn.innerHTML='<span>Обмін: чекаємо '+nmz(g.players[t.to].name)+'</span><button class="red" data-a="cancel2">Скасувати</button>'}}
-$('tm').onclick=e=>{const btn=e.target.closest('[data-a]');const a=btn&&btn.dataset&&btn.dataset.a;if(!a)return;
+$('tm').onclick=e=>{
+const sw=e.target.closest('[data-ed-col]');
+if(sw&&sel!=null){
+  const col=sw.dataset.edCol;
+  CELLS[sel].color=col;
+  saveCustomCells();
+  trRender();
+  return;
+}
+const btn=e.target.closest('[data-a]');const a=btn&&btn.dataset&&btn.dataset.a;if(!a)return;
 if(a=='close_m'){modalView=null;trRender();return}
+if(a=='open_ed'){const idx=+btn.dataset.i;openMapEditor(idx);return}
+if(a=='ed_close'){
+  editMode=false;
+  modalView=null;
+  trRender();
+  if(g&&g.status=='waiting'&&!room)$('ov').style.display='block';
+  return;
+}
+if(a=='ed_apply'&&sel!=null){
+  const c=CELLS[sel];
+  const nmVal=($('edName')&&$('edName').value.trim())||c.name;
+  const tpVal=($('edType')&&$('edType').value)||c.type;
+  const prVal=Math.max(50,Math.round((+($('edPrice')&&$('edPrice').value)||c.price||1000)/50)*50);
+  const picVal=+($('edPic')&&$('edPic').value);
+  c.name=nmVal.slice(0,28);
+  c.type=VALID_TYPES.includes(tpVal)?tpVal:c.type;
+  c.price=isO(c)?prVal:0;
+  if(Number.isFinite(picVal)&&picVal>=0&&picVal<40)c.o=picVal;
+  saveCustomCells();
+  trRender();
+  return;
+}
+if(a=='ed_reset'){
+  resetCustomCells();
+  trRender();
+  return;
+}
+if(a=='ed_export'){
+  const txt=JSON.stringify(CELLS);
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).catch(()=>{});
+  prompt('Скопіюй конфіг карти та надішли для збереження в коді:',txt);
+  return;
+}
 if(a=='m_take'||a=='m_red'){const idx=+btn.dataset.i;toggleMortgage(idx);setTimeout(trRender,120);return}
 if(a=='c_bld'){const idx=+btn.dataset.i;buildOnCell(idx);setTimeout(trRender,120);return}
 if(a=='p_stat'){const p=g.players&&g.players[uid];if(p){L(g,p.name+': баланс '+Math.max(0,Math.round(p.balance))+' ₴, кіл '+(p.laps||0));modalView=null;trRender()}return}
@@ -405,7 +526,7 @@ if(first){first=false;lastRid=g.rid;g.order.forEach(id=>{if(g.players[id])vp[id]
 if(g.rid!==lastRid){lastRid=g.rid;toss(g.lastDice[0],g.lastDice[1])}
 if(g.status=='finished'){$('ov').style.display='block';$('wt').classList.add('hid');$('fin').classList.remove('hid');$('win').textContent='ПЕРЕМІГ '+pn(g,g.winner);$('stats').innerHTML=g.order.map(id=>{const p=g.players[id];return p?esc(p.name)+': '+(p.alive?Math.round(p.balance).toLocaleString('uk')+' ₴':'банкрут')+' · кіл '+(p.laps||0):''}).filter(Boolean).join('<br>')}else $('ov').style.display='none'})}
 async function leaveRoom(){if(!g||!room||!uid){lobby();return}const wasTurn=g.status=='playing'&&cur(g)==uid;try{await mutate(G=>{if(!G.players||!G.players[uid])return;const p=G.players[uid];if(G.status=='waiting'){G.order=(G.order||[]).filter(id=>id!==uid);delete G.players[uid];if(G.host==uid)G.host=G.order[0]||'';return}if(p.alive){p.alive=false;p.balance=0;for(const k of Object.keys(G.owners||{}))if(G.owners[k]===uid){delete G.owners[k];if(G.houses)delete G.houses[k];if(G.mort)delete G.mort[k]}L(G,p.name+' вийшов з гри');checkWin(G);if(wasTurn&&G.status=='playing')next(G)}})}finally{lobby()}}
-function lobby(){sel=null;modalView=null;tdr=null;$('tm').classList.add('hid');$('tbn').style.display='none';$('chat').style.display='none';unG&&unG();unG=null;room='';g=null;D=null;$('ov').style.display='block';$('lob').classList.remove('hid');$('wt').classList.add('hid');$('fin').classList.add('hid');$('roll').style.display=$('buy').style.display=$('end').style.display='none';if($('aucBox'))$('aucBox').style.display='none'}
+function lobby(){sel=null;modalView=null;editMode=false;tdr=null;$('tm').classList.add('hid');$('tbn').style.display='none';$('chat').style.display='none';unG&&unG();unG=null;room='';g=null;D=null;$('ov').style.display='block';$('lob').classList.remove('hid');$('wt').classList.add('hid');$('fin').classList.add('hid');$('roll').style.display=$('buy').style.display=$('end').style.display='none';if($('aucBox'))$('aucBox').style.display='none'}
 $('exit').onclick=leaveRoom;$('back').onclick=leaveRoom;$('back2').onclick=lobby;
 function rooms(){unR&&unR();unR=onValue(query(ref(db,'pixelRooms'),limitToLast(30)),s=>{const a=Object.values(s.val()||{}).filter(r=>r.status=='waiting'&&r.order&&r.order.length<6).sort((p,q)=>q.created-p.created).slice(0,15);
 $('rooms').innerHTML=a.length?a.map(r=>'<div class="room"><div><span>'+esc(r.code)+'</span><br><small>'+esc(({classic:'Класичний',fast:'Швидкий',rich:'Багатій',hard:'Хардкор'})[r.mode]||r.mode)+' · '+r.order.length+'/6</small></div><button data-r="'+esc(r.code)+'">УВІЙТИ</button></div>').join(''):'Відкритих кімнат немає';$('rooms').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>join(b.dataset.r))},e=>{$('rooms').textContent='Помилка: '+e.message})}
