@@ -149,6 +149,7 @@ else if(k=='siren'){rr(cx-.34*s,cy+.16*s,.68*s,.22*s,2,'#555');x.fillStyle='#e53
 x.restore()}
 function pic(cell,k,cx,cy,s,col){const im=IM[cell.i];if(im){const q=Math.min(s*1.68/im.width,s*1.68/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.2,col)}
 const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
+const taxAmt=G=>G&&G.mode=='hard'?2000:1000;
 function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return String(rentOf(g,cell.i))}
 function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#fff';x.fillText(s,0,0);x.restore()}
 function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#f7f5ee':'#f3edd8',ml=mortLeft(g,cell.i);
@@ -259,7 +260,7 @@ const CHEST=[
   {t:'Премія зі скарбниці: +1500 ₴',fn:(G,id)=>{G.players[id].balance+=1500}},
   {t:'Непередбачені витрати: −400 ₴',fn:(G,id)=>transfer(G,id,null,400)}
 ];
-function land(G,id){const p=G.players[id];if(!p||!p.alive)return;const c=CELLS[p.pos];L(G,p.name+' → '+c.name);const tx=G.mode=='hard'?2000:1000,sal=G.mode=='fast'?1000:2000;
+function land(G,id){const p=G.players[id];if(!p||!p.alive)return;const c=CELLS[p.pos];L(G,p.name+' → '+c.name);const tx=taxAmt(G),sal=G.mode=='fast'?1000:2000;
 if(c.type=='tax'){transfer(G,id,null,tx);L(G,'Податок −'+tx+' ₴')}
 else if(c.type=='chance'){const ev=CHANCE[Math.random()*CHANCE.length|0];ev.fn(G,id,sal);L(G,'Шанс: '+ev.t)}
 else if(c.type=='chest'){const ev=CHEST[Math.random()*CHEST.length|0];ev.fn(G,id,sal);L(G,'Скарбниця: '+ev.t)}
@@ -291,9 +292,35 @@ function cardRect(i){const n=g.order.length,cl=n<=3?n:n==4?2:3,cw=(W-12)/cl;retu
 function cardHit(px,py){if(g.status!='playing'||!g.players||!g.players[uid]||!g.players[uid].alive||tdr||modalView||(g.trade&&g.trade.status=='pending'))return false;for(let i=0;i<g.order.length;i++){const id=g.order[i],r=cardRect(i);if(g.players[id]&&g.players[id].alive&&px>=r.x&&px<r.x+r.w&&py>=r.y&&py<r.y+r.h){if(id===uid){openPlayerMenu();return true}tdr={to:id,give:new Set(),ask:new Set(),gc:0,ac:0};trRender();return true}}return false}
 const nmz=n=>esc(noE(n)),list=(ids,sel,side)=>ids.map(i=>'<label class="it"><input type="checkbox" data-s="'+side+'" data-i="'+i+'"'+(sel&&sel.has(i)?' checked':'')+'><span class="dot" style="background:'+CELLS[i].color+'"></span>'+nmz(CELLS[i].name)+' · '+CELLS[i].price+'</label>').join('')||'<small>немає ділянок</small>',
 desc=(ids,c)=>[...(ids||[]).map(i=>nmz(CELLS[i].name)),...(c?[c+' ₴']:[])].join(', ')||'нічого';
-function cellCardHtml(i){const c=CELLS[i];if(!c)return '';const owId=g.owners&&g.owners[i],ow=owId&&g.players&&g.players[owId]?noE(g.players[owId].name):'Вільна (банк)',ml=mortLeft(g,i),hs=(g.houses&&g.houses[i])||0,rnt=isO(c)?(ml>0?'0 ₴ (застава)':rentOf(g,i)+' ₴'):'—',stTxt=ml>0?('У заставі ('+ml+' х.)'):(hs>=5?'Готель':hs>0?'Рівень '+hs:(fullSet(g,i)?'Повний сет ★':'Звичайна'));
+function cellCardHtml(i){const c=CELLS[i];if(!c)return '';const owId=g.owners&&g.owners[i],ow=owId&&g.players&&g.players[owId]?noE(g.players[owId].name):(isO(c)?'Вільна (банк)':'Банк / Подія'),ml=mortLeft(g,i),hs=(g.houses&&g.houses[i])||0,tx=taxAmt(g),sal=g.mode=='fast'?1000:2000;
+let costLbl='Вартість',costVal='—',effectLbl='Вхід / Оренда',effectVal='—',stTxt='Спеціальна клітинка';
+if(isO(c)){
+  costVal=c.price.toLocaleString('uk')+' ₴';
+  effectVal=ml>0?'0 ₴ (застава)':rentOf(g,i).toLocaleString('uk')+' ₴';
+  stTxt=ml>0?('У заставі ('+ml+' х.)'):(hs>=5?'Готель':hs>0?'Рівень '+hs:(fullSet(g,i)?'Повний сет ★':'Звичайна'));
+}else if(c.type=='tax'){
+  costLbl='Обов’язковий платіж';costVal='−'+tx.toLocaleString('uk')+' ₴';
+  effectLbl='Списання';effectVal='−'+tx.toLocaleString('uk')+' ₴ у банк';
+  stTxt='Податковий збір';
+}else if(c.type=='start'){
+  costLbl='Нагорода за коло';costVal='+'+sal.toLocaleString('uk')+' ₴';
+  effectLbl='Бонус';effectVal='Зарплата при проходженні';
+  stTxt='Стартова клітинка';
+}else if(c.type=='visit'||c.type=='jail'){
+  costLbl='Викуп з арешту';costVal=JAIL_FEE.toLocaleString('uk')+' ₴';
+  effectLbl='Правило';effectVal=c.type=='jail'?'Перехід у в’язницю на 3 ходи':'Вихід за дубль або 500 ₴';
+  stTxt=c.type=='jail'?'Арешт':'В’язниця';
+}else if(c.type=='chance'||c.type=='chest'){
+  costLbl='Ефект';costVal='Випадкова картка';
+  effectLbl='Можлива зміна';effectVal='Від −900 ₴ до +1 500 ₴';
+  stTxt='Колода карток';
+}else if(c.type=='parking'){
+  costLbl='Оплата';costVal='0 ₴';
+  effectLbl='Ефект';effectVal='Безкоштовна зупинка';
+  stTxt='Вільна зона';
+}
 let acts='';if(isO(c)&&owId===uid&&g.phase!='auction'){const mgd=isMg(g,i),meP=g.players[uid];if(!mgd&&!hs){const v=Math.round(c.price/2);acts+='<button class="b" data-a="m_take" data-i="'+i+'">Заставити (+'+v+' ₴)</button>'}else if(mgd){const cost=Math.round(c.price*.55);acts+='<button data-a="m_red" data-i="'+i+'" '+(meP.balance<cost?'disabled':'')+'>Викупити (−'+cost+' ₴)</button>'}if(canBuild(g,uid,i))acts+='<button data-a="c_bld" data-i="'+i+'">Збудувати (−'+hcost(c)+' ₴)</button>'}
-return '<div class="tb"><div class="icard-top"><span class="icard-badge"><span class="icard-dot" style="background:'+esc(c.color)+'"></span>'+nmz(c.name)+'</span><button class="icard-x" data-a="close_m">✕</button></div><div class="icard-grid"><div class="icard-box"><div class="icard-k">Тип</div><div class="icard-v">'+esc(TYPE_LBL[c.type]||c.type)+'</div></div><div class="icard-box"><div class="icard-k">Вартість</div><div class="icard-v">'+(c.price?c.price.toLocaleString('uk')+' ₴':'—')+'</div></div><div class="icard-box"><div class="icard-k">Власник</div><div class="icard-v">'+esc(ow)+'</div></div><div class="icard-box"><div class="icard-k">Вхід / Оренда</div><div class="icard-v">'+esc(rnt)+'</div></div><div class="icard-box"><div class="icard-k">Стан</div><div class="icard-v">'+esc(stTxt)+'</div></div><div class="icard-box"><div class="icard-k">Позиція</div><div class="icard-v">Клітинка #'+(i+1)+'</div></div></div>'+(acts?'<div class="icard-acts">'+acts+'</div>':'')+'</div>'}
+return '<div class="tb"><div class="icard-top"><span class="icard-badge"><span class="icard-dot" style="background:'+esc(c.color)+'"></span>'+nmz(c.name)+'</span><button class="icard-x" data-a="close_m">✕</button></div><div class="icard-grid"><div class="icard-box"><div class="icard-k">Тип</div><div class="icard-v">'+esc(TYPE_LBL[c.type]||c.type)+'</div></div><div class="icard-box"><div class="icard-k">'+esc(costLbl)+'</div><div class="icard-v">'+esc(costVal)+'</div></div><div class="icard-box"><div class="icard-k">Власник</div><div class="icard-v">'+esc(ow)+'</div></div><div class="icard-box"><div class="icard-k">'+esc(effectLbl)+'</div><div class="icard-v">'+esc(effectVal)+'</div></div><div class="icard-box"><div class="icard-k">Стан</div><div class="icard-v">'+esc(stTxt)+'</div></div><div class="icard-box"><div class="icard-k">Позиція</div><div class="icard-v">Клітинка #'+(i+1)+'</div></div></div>'+(acts?'<div class="icard-acts">'+acts+'</div>':'')+'</div>'}
 function playerMenuHtml(){const p=g.players&&g.players[uid];if(!p)return '';const idx=g.order.indexOf(uid),col=COL[Math.max(0,idx)%6],ph=(p.photo)||(getTgPhoto()||''),av=ph?'<img class="p-av" style="border:2px solid '+col+'" src="'+esc(ph)+'">':'<div class="p-av" style="background:'+col+'">'+esc((Array.from(noE(p.name))[0]||'?').toUpperCase())+'</div>',ownedCnt=Object.values(g.owners||{}).filter(xid=>xid===uid).length,mortCnt=Object.keys(g.mort||{}).filter(k=>(g.owners||{})[k]===uid&&mortLeft(g,+k)>0).length,myTurn=g.status=='playing'&&cur(g)==uid;
 return '<div class="tb"><div class="icard-top"><span style="font-size:11px;letter-spacing:1px;color:#8ea0c9;font-weight:800">ВАШ ГРАВЕЦЬ</span><button class="icard-x" data-a="close_m">✕</button></div><div class="p-head">'+av+'<div><div style="font-size:18px;font-weight:900;color:#fff">'+nmz(p.name)+'</div><div style="font-size:15px;font-weight:800;color:#6be07a">'+Math.max(0,Math.round(p.balance)).toLocaleString('uk')+' ₴</div></div></div><button class="ghost p-menu-btn" data-a="p_stat">Профіль<span class="p-menu-sub">Ділянок: '+ownedCnt+' · В заставі: '+mortCnt+' · Кіл: '+(p.laps||0)+'</span></button><button class="ghost p-menu-btn" data-a="p_mort">Застава та викуп<span class="p-menu-sub">Керування заставою ваших ділянок ('+mortCnt+' активних)</span></button><button class="ghost p-menu-btn" data-a="p_surr" '+(myTurn?'':'disabled')+'>Здатися<span class="p-menu-sub">'+(myTurn?'Вийти з партії та передати майно банку':'Доступно лише під час вашого ходу')+'</span></button></div>'}
 function trRender(){const tm=$('tm'),bn=$('tbn'),t=g&&g.trade;bn.style.display='none';
