@@ -228,7 +228,7 @@ function rentOf(G,i){if(isMg(G,i))return 0;const c=CELLS[i],b=Math.round(c.price
 const canBuild=(G,id,i)=>{const c=CELLS[i];if(!c||c.type!='property'||!G.owners||G.owners[i]!==id||!fullSet(G,i)||!['roll','end'].includes(G.phase)||CELLS.some(z=>z.type=='property'&&z.color==c.color&&isMg(G,z.i)))return false;const hs=G.houses||{},h=hs[i]||0,mn=Math.min(...CELLS.filter(z=>z.type=='property'&&z.color==c.color).map(z=>hs[z.i]||0));return h<5&&h<=mn&&G.players[id].balance>=hcost(c)};
 const L=(G,t)=>{G.logs=[...(G.logs||[]),{id:Date.now()+Math.random(),t}].slice(-60)},pn=(G,id)=>noE(G.players&&G.players[id]&&G.players[id].name)||'Гравець';
 function checkWin(G){const al=G.order.filter(id=>G.players[id]&&G.players[id].alive);if(al.length<=1&&G.status=='playing'){G.status='finished';G.winner=al[0]||'';if(al[0])L(G,'Переміг '+pn(G,al[0]))}}
-function transfer(G,from,to,amt){const a=Math.max(0,Math.round(amt)),p=G.players[from];if(!p||a<=0)return;const paid=Math.min(a,Math.max(0,p.balance));p.balance-=paid;if(to&&G.players[to]&&G.players[to].alive)G.players[to].balance+=paid;if(a>paid){p.alive=false;p.balance=0;for(const k of Object.keys(G.owners||{}))if(G.owners[k]===from){delete G.owners[k];if(G.houses)delete G.houses[k];if(G.mort)delete G.mort[k]}L(G,p.name+' збанкрутував');checkWin(G)}}
+function transfer(G,from,to,amt){const a=Math.max(0,Math.round(amt)),p=G.players[from];if(!p||a<=0)return;const curBal=Math.max(0,Math.round(p.balance||0)),paid=Math.min(a,curBal);p.balance=curBal-paid;if(to&&G.players[to]&&G.players[to].alive)G.players[to].balance=Math.max(0,Math.round(G.players[to].balance||0))+paid;if(a>paid){p.alive=false;p.balance=0;for(const k of Object.keys(G.owners||{}))if(G.owners[k]===from){delete G.owners[k];if(G.houses)delete G.houses[k];if(G.mort)delete G.mort[k]}L(G,p.name+' збанкрутував');checkWin(G)}}
 function next(G){if(G.status!='playing')return;const old=cur(G);if(G.extra&&G.players[old]&&G.players[old].alive){G.extra=false;G.phase='roll';L(G,pn(G,old)+' кидає ще раз');return}G.extra=false;if(G.players[old])G.players[old].dbl=0;let n=0;do{G.turn=(G.turn+1)%G.order.length;n++}while((!G.players[cur(G)]||!G.players[cur(G)].alive)&&n<=G.order.length);tickMortgages(G);G.phase='roll';checkWin(G)}
 const CHANCE=[
   {t:'Інвестиційний успіх: +1200 ₴',fn:(G,id)=>{G.players[id].balance+=1200}},
@@ -245,11 +245,11 @@ const CHEST=[
   {t:'Непередбачені витрати: −400 ₴',fn:(G,id)=>transfer(G,id,null,400)}
 ];
 function land(G,id){const p=G.players[id];if(!p||!p.alive)return;const c=CELLS[p.pos];L(G,p.name+' → '+c.name);const tx=G.mode=='hard'?2000:1000,sal=G.mode=='fast'?1000:2000;
-if(c.type=='tax'){transfer(G,id,null,tx);L(G,'Податок '+tx+' ₴')}
+if(c.type=='tax'){transfer(G,id,null,tx);L(G,'Податок −'+tx+' ₴')}
 else if(c.type=='chance'){const ev=CHANCE[Math.random()*CHANCE.length|0];ev.fn(G,id,sal);L(G,'Шанс: '+ev.t)}
 else if(c.type=='chest'){const ev=CHEST[Math.random()*CHEST.length|0];ev.fn(G,id,sal);L(G,'Скарбниця: '+ev.t)}
 else if(c.type=='jail'){toJail(G,id);L(G,p.name+' іде у в’язницю')}
-else if(isO(c)){const o=G.owners&&G.owners[p.pos];if(o&&o!==id&&G.players[o]&&G.players[o].alive){const r=rentOf(G,p.pos);if(r>0){transfer(G,id,o,r);L(G,'Вступ '+r+' ₴ → '+pn(G,o))}else L(G,'Ділянка в заставі — вступ безкоштовний')}}}
+else if(isO(c)){const o=G.owners&&G.owners[p.pos];if(o&&o!==id&&G.players[o]&&G.players[o].alive){const r=rentOf(G,p.pos);if(r>0){transfer(G,id,o,r);L(G,'Списано −'+r+' ₴ → '+pn(G,o)+' (залишок '+Math.max(0,Math.round(p.balance))+' ₴)')}else L(G,'Ділянка в заставі — вступ безкоштовний')}}}
 async function mutate(fn){if(wb||!room)return;wb=true;try{await runTransaction(ref(db,'pixelRooms/'+room),G=>{if(!G)return;return fn(G)===false?undefined:G},{applyLocally:false})}catch(e){info='Помилка: '+e.message;infoT=300}finally{wb=false}}
 $('roll').onclick=()=>{const a=1+Math.random()*6|0,b=1+Math.random()*6|0;mutate(G=>{if(G.status!='playing'||cur(G)!=uid||G.phase!='roll')return false;const p=G.players[uid];if(!p||!p.alive)return false;const dbl=a==b;G.lastDice=[a,b];G.rid=Date.now();G.extra=false;L(G,p.name+' кидає '+a+'+'+b+(dbl?' (дубль)':''));
 if(p.jail>0){if(dbl){p.jail=0;L(G,p.name+' виходить з в’язниці')}else{p.jail--;if(p.jail>0){L(G,p.name+' лишається у в’язниці ('+p.jail+')');G.phase='end';return}transfer(G,uid,null,JAIL_FEE);L(G,p.name+' сплатив штраф '+JAIL_FEE+' ₴');if(!p.alive){next(G);return}}}
