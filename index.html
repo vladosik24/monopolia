@@ -135,8 +135,8 @@ else if(k=='siren'){rr(cx-.34*s,cy+.16*s,.68*s,.22*s,2,'#555');x.fillStyle='#e53
 x.restore()}
 function pic(cell,k,cx,cy,s,col){const im=IM[cell.i];if(im){const q=Math.min(s*1.56/im.width,s*1.56/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.15,col)}
 const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
-function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return 'ВХ '+rentOf(g,cell.i)}
-function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.lineWidth=2.2;x.strokeStyle='rgba(0,0,0,.55)';x.strokeText(s,0,0);x.fillStyle='#fff';x.fillText(s,0,0);x.restore()}
+function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return String(rentOf(g,cell.i))}
+function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#fff';x.fillText(s,0,0);x.restore()}
 function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#f7f2e2':'#f6eaa3',ml=mortLeft(g,cell.i);
 rr(X+1,Y+1,w-2,h-2,6,base,'#3a2f22',1.2);if(oi>=0){x.globalAlpha=.42;rr(X+1,Y+1,w-2,h-2,6,COL[oi%6]);x.globalAlpha=1}
 let cx0=X+1,cy0=Y+1,cw=w-2,ch=h-2;
