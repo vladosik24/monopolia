@@ -166,10 +166,10 @@ T(cut(noE(p.name),r.w-56),r.x+50,r.y+16,'#f4ecd8',13,'left',600);T(p.alive?Math.
 CELLS.forEach(tile);
 rr(ix+2,iy+2,iw-4,ih-4,8,'#0f0d0b');
 let L0=iy+10;if(g.phase=='auction'&&g.auction){const a=g.auction,lc=a.leader&&g.players[a.leader]?g.players[a.leader].name:'—';T('АУКЦІОН · '+noE(CELLS[a.i].name),ix+iw/2,L0+8,'#ffd23f',14,'center',600);T(a.bid?'Ставка '+a.bid+' · '+noE(lc):'Старт від '+a.min,ix+iw/2,L0+27,'#fff',13,'center',600);T(Math.max(0,Math.ceil((a.end-now())/1000))+' с',ix+iw/2,L0+44,'#7be07b',13,'center',600);L0+=56}
-const avail=iy+ih-18-L0,evs=[...(g.logs||[]),...Object.values(g.chat||{})].sort((a,b)=>a.id-b.id).slice(-40),blocks=[];let used=0;
+const avail=iy+ih-8-L0,evs=[...(g.logs||[]),...Object.values(g.chat||{})].sort((a,b)=>a.id-b.id).slice(-40),blocks=[];let used=0;
 for(let k=evs.length-1;k>=0;k--){const ln=wrapEv(noE(evs[k].t),iw-20),hgt=ln.length*17+5;if(used+hgt>avail)break;used+=hgt;blocks.unshift(ln)}
 let ly=L0+4;blocks.forEach(ln=>{ln.forEach(line=>{let lx=ix+10;line.forEach(([w,c,ww])=>{x.font='600 13px '+FN;x.textAlign='left';x.textBaseline='middle';x.fillStyle=c;x.fillText(w,lx,ly+8);lx+=ww});ly+=17});ly+=5});
-if(infoT>0)T(cut(info,iw-12),ix+iw/2,iy+ih-12,'#ffd23f',11,'center',600);else{T(cut('гравець — обмін · клітинка — інфо',iw-12),ix+iw/2,iy+ih-11,'#6f6552',11,'center',600)}
+if(infoT>0)T(cut(info,iw-12),ix+iw/2,iy+ih-12,'#ffd23f',11,'center',600);
 g.order.forEach((id,i)=>{const p=g.players[id];if(!p||!p.alive)return;const r=R(vp[id]??p.pos),a=r.x+r.w/2+(i%2?7:-7),b=r.y+r.h/2+(i>1?7:-7),hh=(hopId==id&&hop>0)?Math.sin((10-hop)/10*Math.PI)*12:0;x.fillStyle='rgba(0,0,0,.35)';x.beginPath();x.ellipse(a,b+8,8,3,0,0,7);x.fill();const initial=(Array.from(noE(p.name))[0]||'?').toUpperCase();drawAvatar(a,b-hh,11,p,COL[i%6],initial,id===uid)});
 if(D){x.save();x.scale(U,U);D.forEach(dice);x.restore()}}
 function step(d){if(d.rest)return;d.t++;d.x+=d.vx;d.y+=d.vy;d.z+=d.vz;d.vz-=.55;d.a+=d.sp;if(d.t%3==0&&Math.hypot(d.vx,d.vy)+Math.abs(d.vz)>1)d.v=1+Math.random()*6|0;
@@ -196,7 +196,7 @@ if(au&&now()>au.end+(uid==cur(g)?0:1200)&&!wb&&!resolvingAuc&&++aT%15==0)resolve
 $('end').textContent=g.phase=='buy'?'АУКЦІОН (ПАС)':'ЗАВЕРШИТИ ХІД';
 if(me){$('buy').textContent='КУПИТИ '+cl.price;$('buy').disabled=me.balance<cl.price}}
 let last=0,acc=0;function loop(t){acc+=Math.min(50,t-last);last=t;while(acc>=16.67){upd();acc-=16.67}draw();requestAnimationFrame(loop)}requestAnimationFrame(t=>{last=t;loop(t)});
-cv.addEventListener('pointerdown',e=>{if(!g||!g.players)return;const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;if(cardHit(px,py))return;const z=CELLS.find(c=>{const q=R(c.i);return px>=q.x&&px<q.x+q.w&&py>=q.y&&py<q.y+q.h});if(!z)return;const owId=g.owners&&g.owners[z.i],o=owId&&g.players[owId]?g.players[owId].name:'банк',ml=mortLeft(g,z.i);sel=z.i;const parts=[noE(z.name)];if(z.price)parts.push(z.price+' ₴');if(isO(z)){parts.push(noE(o));if(owId&&!ml)parts.push('ор. '+rentOf(g,z.i)+' ₴');if(z.type=='property')parts.push('буд. '+hcost(z)+' ₴');if(ml>0)parts.push('застава: '+ml+' х.')}info=parts.join(' · ');infoT=300});
+cv.addEventListener('pointerdown',e=>{if(!g||!g.players)return;const r=cv.getBoundingClientRect(),px=e.clientX-r.left,py=e.clientY-r.top;if(cardHit(px,py))return;const z=CELLS.find(c=>{const q=R(c.i);return px>=q.x&&px<q.x+q.w&&py>=q.y&&py<q.y+q.h});if(!z)return;const owId=g.owners&&g.owners[z.i],o=owId&&g.players[owId]?g.players[owId].name:'банк',ml=mortLeft(g,z.i);sel=z.i;const parts=[noE(z.name)];if(z.price)parts.push(z.price+' ₴');if(isO(z)){parts.push(noE(o));if(owId&&!ml)parts.push('ор. '+rentOf(g,z.i)+' ₴');if(ml>0)parts.push('застава: '+ml+' х.')}info=parts.join(' · ');infoT=300});
 const JAIL_FEE=500,jailPos=()=>CELLS.find(c=>c.type=='visit').i;
 const mortLeft=(G,i)=>(G&&G.mort&&G.mort[i])||0;
 const isMg=(G,i)=>mortLeft(G,i)>0;
