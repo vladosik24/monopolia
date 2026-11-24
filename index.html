@@ -60,19 +60,19 @@ const app=initializeApp({apiKey:'AIzaSyBQNVeXBCqQi5eKhfjAQTJivwKzT9gXT0k',authDo
 const $=id=>document.getElementById(id),COL=['#e05a5a','#49b87a','#e2b646','#5898dc','#9b6fd6','#e28743'],WL=150,MORT_TURNS=6;
 const G1='#d66b78',G2='#4b9ad6',G3='#e0a838',G4='#4ba879',G5='#8e6fd4',RAIL_COL='#8b95a5',C_UTL='#8b95a5',C_SPEC='#f3e8ce';
 const STAMPS=[
-  {id:'pink',label:'Рожевий',color:'#d66b78',type:'property',price:800,name:'Рожева ділянка',o:1},
-  {id:'sky',label:'Блакитний',color:'#4b9ad6',type:'property',price:1200,name:'Блакитна ділянка',o:4},
-  {id:'gold',label:'Жовтий',color:'#e0a838',type:'property',price:1800,name:'Жовта ділянка',o:9},
-  {id:'green',label:'Зелений',color:'#4ba879',type:'property',price:2200,name:'Зелена ділянка',o:7},
-  {id:'purple',label:'Фіолетовий',color:'#8e6fd4',type:'property',price:2600,name:'Фіолетова ділянка',o:26},
-  {id:'orange',label:'Помаранчевий',color:'#e07c48',type:'property',price:3000,name:'Помаранчева ділянка',o:31},
-  {id:'indigo',label:'Індиго',color:'#5a78d6',type:'property',price:3400,name:'Індиго ділянка',o:33},
-  {id:'gift',label:'🎁 Подарунок',color:'#e05a7a',type:'gift',price:0,name:'Подарунок',o:18},
-  {id:'chest',label:'💰 Скарбниця',color:'#d4a437',type:'chest',price:0,name:'Скарбниця',o:18},
-  {id:'chance',label:'❓ Шанс',color:'#46a875',type:'chance',price:0,name:'Шанс',o:3},
-  {id:'tax',label:'% Податок',color:'#cc5a4e',type:'tax',price:0,name:'Податок',o:8},
-  {id:'rail',label:'🚆 Транспорт',color:'#8b95a5',type:'rail',price:2000,name:'Вокзал',o:5},
-  {id:'neutral',label:'⬜ Нейтральна',color:'#8b95a5',type:'parking',price:0,name:'Вільна зона',o:20}
+  {id:'pink',label:'Рожевий',color:'#d66b78',type:'property',price:800,name:'Рожева ділянка',custom:true},
+  {id:'sky',label:'Блакитний',color:'#4b9ad6',type:'property',price:1200,name:'Блакитна ділянка',custom:true},
+  {id:'gold',label:'Жовтий',color:'#e0a838',type:'property',price:1800,name:'Жовта ділянка',custom:true},
+  {id:'green',label:'Зелений',color:'#4ba879',type:'property',price:2200,name:'Зелена ділянка',custom:true},
+  {id:'purple',label:'Фіолетовий',color:'#8e6fd4',type:'property',price:2600,name:'Фіолетова ділянка',custom:true},
+  {id:'orange',label:'Помаранчевий',color:'#e07c48',type:'property',price:3000,name:'Помаранчева ділянка',custom:true},
+  {id:'indigo',label:'Індиго',color:'#5a78d6',type:'property',price:3400,name:'Індиго ділянка',custom:true},
+  {id:'gift',label:'🎁 Подарунок',color:'#e05a7a',type:'gift',price:0,name:'Подарунок',custom:true},
+  {id:'chest',label:'💰 Скарбниця',color:'#d4a437',type:'chest',price:0,name:'Скарбниця',custom:true},
+  {id:'chance',label:'❓ Шанс',color:'#46a875',type:'chance',price:0,name:'Шанс',custom:true},
+  {id:'tax',label:'% Податок',color:'#cc5a4e',type:'tax',price:0,name:'Податок',custom:true},
+  {id:'rail',label:'🚆 Транспорт',color:'#8b95a5',type:'rail',price:2000,name:'Вокзал',custom:true},
+  {id:'neutral',label:'⬜ Нейтральна',color:'#8b95a5',type:'parking',price:0,name:'Вільна зона',custom:true}
 ];
 const STORAGE_KEY='mono_custom_cells_v1';
 const AV={};
@@ -187,7 +187,7 @@ const VALID_TYPES=['start','property','rail','utility','chance','chest','gift','
 const isO=c=>['property','rail','utility'].includes(c.type);
 function normalizeCellsArr(arr){
   return DEFAULT_CELLS.map((def,idx)=>{
-    const it=(Array.isArray(arr)&&arr[idx])||{};
+    const it=(Array.isArray(arr)&&arr.find(x=>x&&+x.i===idx))||(Array.isArray(arr)&&arr[idx])||{};
     const t=VALID_TYPES.includes(it.type)?it.type:def.type;
     return {
       i:idx,
@@ -195,7 +195,8 @@ function normalizeCellsArr(arr){
       name:String(it.name||def.name).slice(0,28),
       price:isO({type:t})?Math.max(100,Math.round((+it.price||def.price||1000)/50)*50):0,
       color:typeof it.color==='string'&&/^#[0-9a-fA-F]{3,8}$/.test(it.color)?it.color:def.color,
-      type:t
+      type:t,
+      custom:!!it.custom
     };
   });
 }
@@ -212,6 +213,7 @@ function applyRemoteCells(remoteArr){
   const norm=normalizeCellsArr(remoteArr);
   norm.forEach((c,idx)=>{CELLS[idx]=c});
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(CELLS))}catch(e){}
+  if(stampMode)renderNumSelect();
 }
 function saveCustomCells(){
   try{localStorage.setItem(STORAGE_KEY,JSON.stringify(CELLS))}catch(e){}
@@ -226,7 +228,7 @@ function resetCustomCells(){
 const IM={};
 const noE=s=>String(s||'').replace(/\s+/g,' ').trim(),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 for(let k=0;k<40;k++){const im=new Image();im.onload=()=>{IM[k]=im};im.src='tiles/'+k+'.png'}
-const cellPic=cell=>IM[cell.o]||null;
+const cellPic=cell=>cell.custom?null:(IM[cell.o]||null);
 const cv=$('c'),x=cv.getContext('2d'),FN='"Nunito",system-ui,sans-serif';
 let W,H,DPR,U,HL,CS,tw,th,BY=46,ix,iy,iw,ih,ixL,iyL,iwL,ihL;
 function fit(){DPR=Math.min(3,window.devicePixelRatio||1);W=innerWidth;H=innerHeight-142;cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);cv.style.width=W+'px';cv.style.height=H+'px';x.setTransform(DPR,0,0,DPR,0,0);let n=2;try{n=g&&g.order?g.order.length:2}catch(e){}const cl=n<=3?n:n==4?2:3;BY=34+Math.ceil(n/cl)*54+2;const Hb=H-BY-4;CS=Math.round(Math.min(W*.22,(Hb-11*30)/2));tw=(W-2*CS)/7;th=(Hb-2*CS)/11;ix=CS;iy=BY+CS;iw=W-2*CS;ih=11*th;U=W/150;HL=H/U;ixL=ix/U;iyL=iy/U;iwL=iw/U;ihL=ih/U}fit();addEventListener('resize',fit);
@@ -294,7 +296,7 @@ function applyStampToCell(idx){
   c.color=st.color;
   c.price=isO(c)?(st.price||1000):0;
   c.name=st.name;
-  c.o=st.o;
+  c.custom=true;
   sel=idx;
   renderNumSelect();
   saveCustomCells();
@@ -326,13 +328,15 @@ else if(k=='bars'){rr(cx-.4*s,cy-.4*s,.8*s,.8*s,3,'#8a8f99','#333',1.5);x.fillSt
 else if(k=='park'){x.fillStyle='#3f7ec2';x.beginPath();x.arc(cx,cy,.42*s,0,7);x.fill();x.strokeStyle='#fff';x.lineWidth=2;x.stroke();T('P',cx,cy+s*.03,'#fff',s*.6,'center',600)}
 else if(k=='siren'){rr(cx-.34*s,cy+.16*s,.68*s,.22*s,2,'#555');x.fillStyle='#cc4743';x.beginPath();x.arc(cx,cy+.16*s,.3*s,Math.PI,0);x.fill();x.strokeStyle='#7a1010';x.lineWidth=1.2;x.stroke();x.fillStyle='#ffffff88';x.fillRect(cx-.12*s,cy-.08*s,.07*s,.2*s)}
 x.restore()}
-function pic(cell,k,cx,cy,s,col){if(!isO(cell)&&cell.type!=='start'&&cell.type!=='visit'&&cell.type!=='parking'&&cell.type!=='jail'){ico(k,cx,cy,s*1.12,col);return}const im=cellPic(cell);if(im){const q=Math.min(s*1.68/im.width,s*1.68/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.2,col)}
+function pic(cell,k,cx,cy,s,col){if(cell.custom||(!isO(cell)&&cell.type!=='start'&&cell.type!=='visit'&&cell.type!=='parking'&&cell.type!=='jail')){ico(k,cx,cy,s*1.12,col);return}const im=cellPic(cell);if(im){const q=Math.min(s*1.68/im.width,s*1.68/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.2,col)}
 const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',gift:'gift',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
 const taxAmt=G=>G&&G.mode=='hard'?2000:1000;
 function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return String(rentOf(g,cell.i))}
 function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#1c253b';x.fillText(s,0,0);x.restore()}
 function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#fcfaf4':'#f3e8ce',ml=mortLeft(g,cell.i);
-rr(X+1,Y+1,w-2,h-2,4,base,'#232c45',1.1);if(oi>=0){x.globalAlpha=.22;rr(X+1,Y+1,w-2,h-2,4,COL[oi%6]);x.globalAlpha=1}
+rr(X+1,Y+1,w-2,h-2,4,base,'#232c45',1.1);
+if(cell.custom&&!ow&&cell.color&&cell.color!==C_SPEC){x.globalAlpha=.28;rr(X+1,Y+1,w-2,h-2,4,cell.color);x.globalAlpha=1}
+if(oi>=0){x.globalAlpha=.22;rr(X+1,Y+1,w-2,h-2,4,COL[oi%6]);x.globalAlpha=1}
 let cx0=X+1,cy0=Y+1,cw=w-2,ch=h-2;
 if(ow){const tg=13,barW=3.5,tagText=tagLabel(cell,oi,ml);x.fillStyle='#e8ecf4';
 if(s=='t'){x.fillRect(X+1,Y+1,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+1+tg-barW,w-2,barW);drawTagText(tagText,X+w/2,Y+1+(tg-barW)/2+.2,w-3,0);cy0+=tg;ch-=tg}
