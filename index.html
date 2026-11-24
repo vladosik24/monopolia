@@ -60,21 +60,21 @@ const app=initializeApp({apiKey:'AIzaSyBQNVeXBCqQi5eKhfjAQTJivwKzT9gXT0k',authDo
 const $=id=>document.getElementById(id),COL=['#e05a5a','#49b87a','#e2b646','#5898dc','#9b6fd6','#e28743'],WL=150,MORT_TURNS=6;
 const G1='#d66b78',G2='#4b9ad6',G3='#e0a838',G4='#4ba879',G5='#8e6fd4',RAIL_COL='#8b95a5',C_UTL='#8b95a5',C_SPEC='#f3e8ce';
 const STAMPS=[
-  {id:'pink',label:'Рожевий',color:'#d66b78',type:'property',price:800,name:'Рожева ділянка',custom:true},
-  {id:'sky',label:'Блакитний',color:'#4b9ad6',type:'property',price:1200,name:'Блакитна ділянка',custom:true},
-  {id:'gold',label:'Жовтий',color:'#e0a838',type:'property',price:1800,name:'Жовта ділянка',custom:true},
-  {id:'green',label:'Зелений',color:'#4ba879',type:'property',price:2200,name:'Зелена ділянка',custom:true},
-  {id:'purple',label:'Фіолетовий',color:'#8e6fd4',type:'property',price:2600,name:'Фіолетова ділянка',custom:true},
-  {id:'orange',label:'Помаранчевий',color:'#e07c48',type:'property',price:3000,name:'Помаранчева ділянка',custom:true},
-  {id:'indigo',label:'Індиго',color:'#5a78d6',type:'property',price:3400,name:'Індиго ділянка',custom:true},
-  {id:'gift',label:'🎁 Подарунок',color:'#e05a7a',type:'gift',price:0,name:'Подарунок',custom:true},
-  {id:'chest',label:'💰 Скарбниця',color:'#d4a437',type:'chest',price:0,name:'Скарбниця',custom:true},
-  {id:'chance',label:'❓ Шанс',color:'#46a875',type:'chance',price:0,name:'Шанс',custom:true},
-  {id:'tax',label:'% Податок',color:'#cc5a4e',type:'tax',price:0,name:'Податок',custom:true},
-  {id:'rail',label:'🚆 Транспорт',color:'#8b95a5',type:'rail',price:2000,name:'Вокзал',custom:true},
-  {id:'neutral',label:'⬜ Нейтральна',color:'#8b95a5',type:'parking',price:0,name:'Вільна зона',custom:true}
+  {id:'pink',label:'Рожевий',color:'#d66b78',type:'property',price:800,name:'Рожевий'},
+  {id:'sky',label:'Блакитний',color:'#4b9ad6',type:'property',price:1200,name:'Блакитний'},
+  {id:'gold',label:'Жовтий',color:'#e0a838',type:'property',price:1800,name:'Жовтий'},
+  {id:'green',label:'Зелений',color:'#4ba879',type:'property',price:2200,name:'Зелений'},
+  {id:'purple',label:'Фіолетовий',color:'#8e6fd4',type:'property',price:2600,name:'Фіолетовий'},
+  {id:'orange',label:'Помаранчевий',color:'#e07c48',type:'property',price:3000,name:'Помаранчевий'},
+  {id:'indigo',label:'Індиго',color:'#5a78d6',type:'property',price:3400,name:'Індиго'},
+  {id:'gift',label:'🎁 Подарунок',color:'#e05a7a',type:'gift',price:0,name:'ПОДАРУНОК'},
+  {id:'chest',label:'💰 Скарбниця',color:'#d4a437',type:'chest',price:0,name:'СКАРБНИЦЯ'},
+  {id:'chance',label:'❓ Шанс',color:'#46a875',type:'chance',price:0,name:'ШАНС'},
+  {id:'tax',label:'% Податок',color:'#cc5a4e',type:'tax',price:0,name:'ПОДАТОК'},
+  {id:'rail',label:'🚆 Транспорт',color:'#8b95a5',type:'rail',price:2000,name:'ТРАНСПОРТ'},
+  {id:'neutral',label:'⬜ Нейтральна',color:'#8b95a5',type:'parking',price:0,name:'НЕЙТРАЛЬНА'}
 ];
-const STORAGE_KEY='mono_custom_cells_v1';
+const STORAGE_KEY='mono_custom_cells_v2';
 const AV={};
 function getTgUser(){
   try{return window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user||null}
@@ -333,24 +333,42 @@ const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',ch
 const taxAmt=G=>G&&G.mode=='hard'?2000:1000;
 function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return String(rentOf(g,cell.i))}
 function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#1c253b';x.fillText(s,0,0);x.restore()}
-function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#fcfaf4':'#f3e8ce',ml=mortLeft(g,cell.i);
-rr(X+1,Y+1,w-2,h-2,4,base,'#232c45',1.1);
-if(cell.custom&&!ow&&cell.color&&cell.color!==C_SPEC){x.globalAlpha=.28;rr(X+1,Y+1,w-2,h-2,4,cell.color);x.globalAlpha=1}
-if(oi>=0){x.globalAlpha=.22;rr(X+1,Y+1,w-2,h-2,4,COL[oi%6]);x.globalAlpha=1}
-let cx0=X+1,cy0=Y+1,cw=w-2,ch=h-2;
-if(ow){const tg=13,barW=3.5,tagText=tagLabel(cell,oi,ml);x.fillStyle='#e8ecf4';
-if(s=='t'){x.fillRect(X+1,Y+1,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+1+tg-barW,w-2,barW);drawTagText(tagText,X+w/2,Y+1+(tg-barW)/2+.2,w-3,0);cy0+=tg;ch-=tg}
-else if(s=='b'){x.fillRect(X+1,Y+h-1-tg,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+h-1-tg,w-2,barW);drawTagText(tagText,X+w/2,Y+h-1-barW-(tg-barW)/2+.2,w-3,0);ch-=tg}
-else if(s=='l'){x.fillRect(X+1,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+1+tg-barW,Y+1,barW,h-2);drawTagText(tagText,X+1+(tg-barW)/2,Y+h/2,h-3,-Math.PI/2);cx0+=tg;cw-=tg}
-else{x.fillRect(X+w-1-tg,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+w-1-tg,Y+1,barW,h-2);drawTagText(tagText,X+w-1-barW-(tg-barW)/2,Y+h/2,h-3,Math.PI/2);cw-=tg}}
-const k=cell.type=='property'?STY[gstyle(cell.color)]:KIND[cell.type];
-if(s=='c'){pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.62,cell.color);T(LBL[cell.type]||cut(cell.name,w-6),X+w/2,Y+h-10,'#3b352a',Math.max(8.5,w*.115),'center',800)}
-else if(!ow){pic(cell,k,X+w/2,Y+h/2,Math.min(w,h)*.96,cell.color);if(cell.type=='gift')T('🎁',X+w-8,Y+9,'#e05a7a',9.5,'center',800)}
-else{pic(cell,k,cx0+cw/2,cy0+ch/2,Math.min(cw,ch)*1.06,cell.color)}
-if(stampMode&&cell.i>0)T(String(cell.i),X+6,Y+8,'#1c253b',8.5,'left',800);
-if(oi>=0){const pcol=COL[oi%6];rr(X+1.5,Y+1.5,w-3,h-3,4,null,pcol,2.4);const hs=(g.houses&&g.houses[cell.i])||0;if(hs>=5)rr(cx0+3,cy0+3,11,11,2.5,pcol,'#111',1.5);else for(let q=0;q<hs;q++)rr(cx0+3+q*8.5,cy0+3,7.5,7.5,1.5,pcol,'#111',1.2);if(cell.type=='property'&&fullSet(g,cell.i))T('★',cx0+cw-8,cy0+ch-8,pcol,12,'center',800)}
-if(ml>0){x.globalAlpha=.68;rr(X+1,Y+1,w-2,h-2,4,'#161b29');x.globalAlpha=1;T('🏦 '+ml,X+w/2,Y+h/2,'#ffd23f',Math.max(9,Math.min(w,h)*.28),'center',800)}
-if(sel===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,stampMode?'#4aa8ff':'#ffffff',2.4);if(g.phase=='auction'&&g.auction&&g.auction.i===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,'#ffd23f',3.2)}
+function tile(cell){
+  const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),ml=mortLeft(g,cell.i);
+  const base=(cell.custom&&cell.color&&cell.color!==C_SPEC)?cell.color:(ow?'#fcfaf4':'#f3e8ce');
+  rr(X+1,Y+1,w-2,h-2,4,base,'#232c45',1.2);
+  if(cell.custom&&cell.color&&cell.color!==C_SPEC){
+    x.globalAlpha=.34;rr(X+1,Y+1,w-2,h-2,4,cell.color);x.globalAlpha=1;
+    rr(X+1,Y+1,w-2,h-2,4,'#f3e8ce');
+    x.globalAlpha=.36;rr(X+1,Y+1,w-2,h-2,4,cell.color);x.globalAlpha=1;
+  }
+  if(oi>=0){x.globalAlpha=.22;rr(X+1,Y+1,w-2,h-2,4,COL[oi%6]);x.globalAlpha=1}
+  let cx0=X+1,cy0=Y+1,cw=w-2,ch=h-2;
+  if(ow){
+    const tg=12,barW=3.5,tagText=tagLabel(cell,oi,ml);
+    x.fillStyle='#e8ecf4';
+    if(s=='t'){x.fillRect(X+1,Y+1,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+1+tg-barW,w-2,barW);drawTagText(tagText,X+w/2,Y+1+(tg-barW)/2+.2,w-3,0);cy0+=tg;ch-=tg}
+    else if(s=='b'){x.fillRect(X+1,Y+h-1-tg,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+h-1-tg,w-2,barW);drawTagText(tagText,X+w/2,Y+h-1-barW-(tg-barW)/2+.2,w-3,0);ch-=tg}
+    else if(s=='l'){x.fillRect(X+1,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+1+tg-barW,Y+1,barW,h-2);drawTagText(tagText,X+1+(tg-barW)/2,Y+h/2,h-3,-Math.PI/2);cx0+=tg;cw-=tg}
+    else{x.fillRect(X+w-1-tg,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+w-1-tg,Y+1,barW,h-2);drawTagText(tagText,X+w-1-barW-(tg-barW)/2,Y+h/2,h-3,Math.PI/2);cw-=tg}
+  }
+  const k=cell.type=='property'?STY[gstyle(cell.color)]:KIND[cell.type];
+  const lbl=LBL[cell.type]||(cell.custom?cell.name:'');
+  if(s=='c'){
+    pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.62,cell.color);
+    T(cut(lbl||cell.name,w-6),X+w/2,Y+h-10,'#3b352a',Math.max(8,Math.min(10.5,w*.115)),'center',800);
+  }else if(!ow){
+    pic(cell,k,X+w/2,Y+h*(lbl?.42:.5),Math.min(w,h)*(lbl?.62:.92),cell.color);
+    if(lbl)T(cut(lbl,w-4),X+w/2,Y+h-8,'#2a251d',Math.max(7.2,Math.min(9.5,w*.15)),'center',800);
+  }else{
+    pic(cell,k,cx0+cw/2,cy0+ch*(cell.custom?.44:.5),Math.min(cw,ch)*(cell.custom?.64:.96),cell.color);
+    if(cell.custom)T(cut(cell.name,cw-4),cx0+cw/2,cy0+ch-7,'#2a251d',Math.max(7,Math.min(9,cw*.15)),'center',800);
+  }
+  if(stampMode&&cell.i>0)T(String(cell.i),X+5,Y+7,'#1c253b',8,'left',800);
+  if(oi>=0){const pcol=COL[oi%6];rr(X+1.5,Y+1.5,w-3,h-3,4,null,pcol,2.4);const hs=(g.houses&&g.houses[cell.i])||0;if(hs>=5)rr(cx0+3,cy0+3,11,11,2.5,pcol,'#111',1.5);else for(let q=0;q<hs;q++)rr(cx0+3+q*8.5,cy0+3,7.5,7.5,1.5,pcol,'#111',1.2);if(cell.type=='property'&&fullSet(g,cell.i))T('★',cx0+cw-8,cy0+ch-8,pcol,12,'center',800)}
+  if(ml>0){x.globalAlpha=.68;rr(X+1,Y+1,w-2,h-2,4,'#161b29');x.globalAlpha=1;T('🏦 '+ml,X+w/2,Y+h/2,'#ffd23f',Math.max(9,Math.min(w,h)*.28),'center',800)}
+  if(sel===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,stampMode?'#4aa8ff':'#ffffff',2.4);if(g.phase=='auction'&&g.auction&&g.auction.i===cell.i)rr(X+1,Y+1,w-2,h-2,4,null,'#ffd23f',3.2)
+}
 function dice(d){const sc=d.rest?1:1+.012*Math.min(28,d.z),s=Math.round(16*sc),px=d.x,py=d.y-d.z*.58;x.fillStyle='rgba(0,0,0,'+(d.rest?.34:Math.max(.14,.34-d.z*.005))+')';x.beginPath();x.ellipse(d.x,d.y+6,7.5,3,0,0,7);x.fill();x.save();x.translate(px,py);x.rotate(d.rest?0:d.a);const gr=x.createLinearGradient(-s/2,-s/2,s/2,s/2);gr.addColorStop(0,'#ffffff');gr.addColorStop(1,'#e2d2a6');rr(-s/2,-s/2,s,s,3.5,gr,d.rest?'#7c6533':'#ffd23f',d.rest?1:1.3);x.fillStyle=d.v==1?'#c8281e':'#2a2118';PIPS[d.v].forEach(q=>{x.beginPath();x.arc(q[0]*s/4,q[1]*s/4,s*.078+.35,0,7);x.fill()});x.restore()}
 const PIPS=[0,[[0,0]],[[-1,-1],[1,1]],[[-1,-1],[0,0],[1,1]],[[-1,-1],[1,-1],[-1,1],[1,1]],[[-1,-1],[1,-1],[0,0],[-1,1],[1,1]],[[-1,-1],[1,-1],[-1,0],[1,0],[-1,1],[1,1]]];
 let fitN=0;
