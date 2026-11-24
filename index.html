@@ -45,24 +45,32 @@ function loadAv(url){
   return null;
 }
 function drawAvatar(cx,cy,r,photoUrl,col,initial){
-  // clip circle
   x.save();
   x.beginPath();x.arc(cx,cy,r,0,7);x.closePath();x.clip();
   const im=photoUrl?loadAv(photoUrl):null;
   if(im&&im.complete&&im.naturalWidth){
-    // cover
     const s=Math.max(r*2/im.width,r*2/im.height);
     x.drawImage(im,cx-im.width*s/2,cy-im.height*s/2,im.width*s,im.height*s);
   }else{
-    x.fillStyle=col;
+    // nice gradient fallback avatar
+    const g=x.createRadialGradient(cx-r*0.3,cy-r*0.3,r*0.1,cx,cy,r);
+    g.addColorStop(0,col);
+    g.addColorStop(1,'#00000055');
+    x.fillStyle=g;
     x.fillRect(cx-r,cy-r,r*2,r*2);
-    T(initial,cx,cy+1,'#111',Math.round(r*1.1),'center',900);
+    // soft inner circle
+    x.fillStyle='rgba(255,255,255,0.15)';
+    x.beginPath();x.arc(cx,cy-r*0.15,r*0.55,0,7);x.fill();
+    T(initial,cx,cy+1,'#fff',Math.round(r*1.05),'center',900);
   }
   x.restore();
-  // white ring
-  x.strokeStyle='#fff';
-  x.lineWidth=2;
+  // colored ring + white outer
+  x.strokeStyle=col;
+  x.lineWidth=Math.max(2,r*0.18);
   x.beginPath();x.arc(cx,cy,r,0,7);x.stroke();
+  x.strokeStyle='rgba(255,255,255,0.7)';
+  x.lineWidth=1.2;
+  x.beginPath();x.arc(cx,cy,r+1,0,7);x.stroke();
 }
 
 const RAW=[["СТАРТ",0,"#fff0b6","start"],["Старе місто",600,"#d8a4ee","property"],["Квіткова вулиця",600,"#d8a4ee","property"],["Шанс",0,"#f9df73","chance"],["Сонячний квартал",1000,"#74c4e7","property"],["Вокзал",2000,"#f0b761","rail"],["Річкова набережна",1000,"#74c4e7","property"],["Зелений парк",1200,"#74c4e7","property"],["Податок",0,"#ef7777","tax"],["Міська ратуша",1400,"#e3a9ce","property"],["ВІЗИТ",0,"#d6dce7","visit"],["Карпатський край",1600,"#e3a9ce","property"],["Лісова долина",1600,"#e3a9ce","property"],["Електростанція",1500,"#eac777","utility"],["Гірське село",1800,"#e3a9ce","property"],["Морська гавань",1800,"#e8aa71","property"],["Автовокзал",2000,"#f0b761","rail"],["Курортний берег",2000,"#e8aa71","property"],["Скарбниця",0,"#e9d67e","chest"],["Південний порт",2200,"#e8aa71","property"],["ПАРКОВКА",0,"#d6dce7","parking"],["Технопарк",2200,"#ef7d8b","property"],["Шанс",0,"#f9df73","chance"],["Індустріальний парк",2200,"#ef7d8b","property"],["Промисловий вузол",2400,"#ef7d8b","property"],["Аеропорт",2000,"#f0b761","rail"],["Культурна площа",2600,"#f2d16d","property"],["Театральний квартал",2600,"#f2d16d","property"],["Водоканал",1500,"#eac777","utility"],["Мистецький центр",2800,"#f2d16d","property"],["ПЕРЕХІД",0,"#d6dce7","jail"],["Золотий проспект",3000,"#7bce9d","property"],["Столичний збір",0,"#ef7777","tax"],["Ділова вежа",3000,"#7bce9d","property"],["Мегаполіс",3200,"#7bce9d","property"],["Метрополітен",2000,"#f0b761","rail"],["Шанс",0,"#f9df73","chance"],["Урядовий квартал",3500,"#7fa8ef","property"],["Скарбниця",0,"#e9d67e","chest"],["Столичний центр",4000,"#7fa8ef","property"]].map((r,k)=>({o:k,name:r[0],price:r[1],color:r[2],type:r[3]})),isO=c=>['property','rail','utility'].includes(c.type);
