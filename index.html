@@ -23,8 +23,8 @@ button.wide{width:100%;margin-bottom:8px}#tm{position:fixed;inset:0;background:r
 </style></head><body>
 <canvas id="c"></canvas><div id="bar"><button id="roll">КИНУТИ КУБИКИ</button><button id="buy">КУПИТИ</button><div id="aucBox"><input id="aucRng" type="range" step="50"><button id="aucBtn">СТАВКА</button></div><button id="jb" class="b">ВИКУП 500</button><button id="mg" class="b">ЗАСТАВА</button><button id="bld" class="b">ЗБУДУВАТИ</button><button id="end" class="b">ЗАВЕРШИТИ ХІД</button></div><div id="tm" class="hid"></div><div id="tbn"></div><div id="chat"><input id="ci" maxlength="80" placeholder="Написати повідомлення…" autocomplete="off"><button id="cs">➤</button></div><button id="exit" class="red">Вихід</button><div id="st">Авторизація…</div>
 <div id="ov"><div class="bx">
-<div id="lob"><h1>МОНОПОЛІЯ</h1><div class="sub">УКРАЇНА · PIXEL</div><input id="nm" maxlength="20" placeholder="Твоє ім’я"><select id="mode"><option value="classic">Класичний</option><option value="fast">Швидкий</option><option value="rich">Багатій</option><option value="hard">Хардкор</option></select><div id="modeHint" class="sub" style="margin:-4px 0 10px"></div><button id="create" class="wide">СТВОРИТИ КІМНАТУ</button><button id="quickPlay" class="wide b">ШВИДКА ГРА</button><div class="r"><input id="rc" placeholder="Код кімнати" maxlength="6"><button id="join" class="b">УВІЙТИ</button></div><h3>ВІДКРИТІ КІМНАТИ</h3><div id="rooms">Завантаження…</div></div>
-<div id="wt" class="hid"><div class="sub">КОД КІМНАТИ</div><div style="text-align:center"><span id="cd"></span></div><button id="copyCode" class="wide b" style="margin-top:8px">СКОПІЮВАТИ КОД</button><div id="pl"></div><button id="shuffle" class="wide b">ПЕРЕМІШАТИ ЧЕРГУ</button><button id="start" class="wide">ПОЧАТИ ГРУ</button><button id="back" class="wide b">← ЛОБІ</button><div class="sub">2–6 гравців</div></div>
+<div id="lob"><h1>МОНОПОЛІЯ</h1><div class="sub">УКРАЇНА · PIXEL</div><input id="nm" maxlength="20" placeholder="Твоє ім’я"><select id="mode"><option value="classic">Класичний</option><option value="fast">Швидкий</option><option value="rich">Багатій</option><option value="hard">Хардкор</option></select><button id="create" class="wide">СТВОРИТИ КІМНАТУ</button><div class="r"><input id="rc" placeholder="Код кімнати" maxlength="6"><button id="join" class="b">УВІЙТИ</button></div><h3>ВІДКРИТІ КІМНАТИ</h3><div id="rooms">Завантаження…</div></div>
+<div id="wt" class="hid"><div class="sub">КОД КІМНАТИ</div><div style="text-align:center"><span id="cd"></span></div><div id="pl"></div><button id="start" class="wide">ПОЧАТИ ГРУ</button><button id="back" class="wide b">← ЛОБІ</button><div class="sub">2–6 гравців</div></div>
 <div id="fin" class="hid"><h1 id="win"></h1><div id="stats" class="sub" style="margin-top:8px"></div><button id="back2" class="wide">У ЛОБІ</button></div></div></div>
 <script type="module">
 import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
@@ -42,11 +42,7 @@ function getTgPhoto(){
     const qPhoto=new URLSearchParams(location.search).get('photo');
     if(qPhoto&&/^https?:\/\//i.test(qPhoto))return qPhoto;
     const u=getTgUser();
-    if(!u)return '';
-    if(u.photo_url)return u.photo_url;
-    if(u.username)return 'https://t.me/i/userpic/320/'+encodeURIComponent(u.username)+'.jpg';
-    if(u.id)return 'https://t.me/i/userpic/320/id'+encodeURIComponent(u.id)+'.jpg';
-    return '';
+    return (u&&u.photo_url)||'';
   }catch(e){return ''}
 }
 function loadAv(url){
@@ -115,7 +111,7 @@ else if(k=='bars'){rr(cx-.4*s,cy-.4*s,.8*s,.8*s,3,'#8a8f99','#333',1.5);x.fillSt
 else if(k=='park'){x.fillStyle='#2f7fd6';x.beginPath();x.arc(cx,cy,.42*s,0,7);x.fill();x.strokeStyle='#fff';x.lineWidth=2;x.stroke();T('P',cx,cy+s*.03,'#fff',s*.6,'center',700)}
 else if(k=='siren'){rr(cx-.34*s,cy+.16*s,.68*s,.22*s,2,'#555');x.fillStyle='#e53935';x.beginPath();x.arc(cx,cy+.16*s,.3*s,Math.PI,0);x.fill();x.strokeStyle='#7a1010';x.lineWidth=1.2;x.stroke();x.fillStyle='#ffffff88';x.fillRect(cx-.12*s,cy-.08*s,.07*s,.2*s)}
 x.restore()}
-function pic(cell,k,cx,cy,s,col){const im=IM[cell.i];if(im){const q=Math.min(s*1.65/im.width,s*1.65/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s*1.25,col)}
+function pic(cell,k,cx,cy,s,col){const im=IM[cell.i];if(im){const q=Math.min(s*1.18/im.width,s*1.18/im.height);x.drawImage(im,cx-im.width*q/2,cy-im.height*q/2,im.width*q,im.height*q)}else ico(k,cx,cy,s,col)}
 const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
 function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#f7f2e2':'#f6eaa3';
 rr(X+1,Y+1,w-2,h-2,6,base,'#3a2f22',1.2);if(oi>=0){x.globalAlpha=.42;rr(X+1,Y+1,w-2,h-2,6,COL[oi%6]);x.globalAlpha=1}
@@ -126,9 +122,9 @@ else if(s=='b'){x.fillRect(X+1,Y+h-1-tg,w-2,tg);T(pr,X+w/2,Y+h-1-tg/2,'#fff',10,
 else if(s=='l'){x.fillRect(X+1,Y+1,tg,h-2);x.save();x.translate(X+1+tg/2,Y+h/2);x.rotate(-Math.PI/2);T(pr,0,.5,'#fff',10,'center');x.restore();cx0+=tg;cw-=tg}
 else{x.fillRect(X+w-1-tg,Y+1,tg,h-2);x.save();x.translate(X+w-1-tg/2,Y+h/2);x.rotate(Math.PI/2);T(pr,0,.5,'#fff',10,'center');x.restore();cw-=tg}}
 const k=cell.type=='property'?STY[gstyle(cell.color)]:KIND[cell.type];
-if(s=='c'){pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.64,cell.color);T(LBL[cell.type]||'',X+w/2,Y+h-11,'#3a2f22',Math.max(9,w*.12),'center',700)}
-else if(!ow){pic(cell,k,X+w/2,Y+h/2,Math.min(w,h)*.95,cell.color)}
-else{pic(cell,k,cx0+cw/2,cy0+ch/2,Math.min(cw,ch)*1.05,cell.color)}
+if(s=='c'){pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.52,cell.color);T(LBL[cell.type]||'',X+w/2,Y+h-11,'#3a2f22',Math.max(9,w*.12),'center',700)}
+else if(!ow){pic(cell,k,X+w/2,Y+h/2,Math.min(w,h)*.74,cell.color)}
+else{pic(cell,k,cx0+cw/2,cy0+ch/2,Math.min(cw,ch)*.78,cell.color)}
 if(oi>=0){const pcol=COL[oi%6];rr(X+1.5,Y+1.5,w-3,h-3,6,null,pcol,3);const hs=(g.houses&&g.houses[cell.i])||0;if(hs>=5)rr(cx0+3,cy0+3,10,10,2,pcol,'#fff',1);else for(let q=0;q<hs;q++)rr(cx0+3+q*8,cy0+3,7,7,1.5,pcol,'#fff',.8);if(cell.type=='property'&&fullSet(g,cell.i))T('★',cx0+cw-8,cy0+ch-8,pcol,12,'center',700)}
 if(g.mort&&g.mort[cell.i]){x.globalAlpha=.6;rr(X+1,Y+1,w-2,h-2,6,'#1a1a1a');x.globalAlpha=1;T('🏦',X+w/2,Y+h/2,'#fff',Math.min(w,h)*.38,'center',700)}
 if(sel===cell.i)rr(X+1,Y+1,w-2,h-2,6,null,'#fff',2.2);if(g.phase=='auction'&&g.auction&&g.auction.i===cell.i)rr(X+1,Y+1,w-2,h-2,6,null,'#ffd23f',3.5)}
@@ -249,14 +245,6 @@ if(a=='yes')mutate(G=>{const t=G.trade;if(!t||t.to!==uid||t.status!='pending')re
 $('tm').onchange=e=>{const d=e.target.dataset;if(!tdr||!d||!d.i)return;const s=d.s=='g'?tdr.give:tdr.ask,i=+d.i;e.target.checked?s.add(i):s.delete(i);trRender()};
 $('tbn').onclick=e=>{if(e.target.dataset&&e.target.dataset.a=='cancel2')mutate(G=>{if(!G.trade||G.trade.from!==uid)return false;L(G,'Обмін скасовано');G.trade=null})};
 
-const MODE_HINTS={classic:'Старт 15 000 ₴ · зарплата 2 000 ₴ · податок 1 000 ₴',fast:'Старт 15 000 ₴ · зарплата 1 000 ₴ · швидший темп',rich:'Старт 30 000 ₴ · великий стартовий капітал',hard:'Старт 10 000 ₴ · податок 2 000 ₴ · жорстка економіка'};
-function syncModeHint(){if($('modeHint')&&$('mode'))$('modeHint').textContent=MODE_HINTS[$('mode').value]||''}
-$('mode').onchange=syncModeHint;syncModeHint();
-
-$('copyCode').onclick=async()=>{if(!room)return;try{await navigator.clipboard.writeText(room);$('copyCode').textContent='СКОПІЙОВАНО ✓';setTimeout(()=>{if($('copyCode'))$('copyCode').textContent='СКОПІЮВАТИ КОД'},1400)}catch(e){alert('Код кімнати: '+room)}};
-$('shuffle').onclick=()=>mutate(G=>{if(G.host!=uid||G.status!='waiting'||!Array.isArray(G.order)||G.order.length<2)return false;for(let i=G.order.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[G.order[i],G.order[j]]=[G.order[j],G.order[i]]}L(G,'Чергу гравців перемішано')});
-$('quickPlay').onclick=()=>{const firstBtn=$('rooms')&&$('rooms').querySelector('[data-r]');if(firstBtn)firstBtn.click();else $('create').click()};
-
 $('start').onclick=()=>mutate(G=>{if(G.host!=uid||G.status!='waiting'||G.order.length<2)return false;G.status='playing';G.phase='roll';G.turn=0;G.round=1;L(G,'Партію розпочато')});
 const nm=()=>($('nm').value.trim()||(getTgUser()&&getTgUser().first_name)||'Гравець').slice(0,20),bal=m=>m=='rich'?30000:m=='hard'?10000:15000;
 $('create').onclick=async()=>{if(!uid)return alert('Зачекайте на авторизацію');const code=Math.random().toString(36).slice(2,8).toUpperCase(),m=$('mode').value;try{await set(ref(db,'pixelRooms/'+code),{code,mode:m,host:uid,status:'waiting',round:1,created:Date.now(),players:{[uid]:{name:nm(),balance:bal(m),pos:0,laps:0,alive:true,photo:getTgPhoto()}},order:[uid],turn:0,phase:'roll',owners:{},logs:[{id:1,t:'Кімнату створено'}],lastDice:[1,1],rid:0,winner:''});open(code)}catch(e){alert('Не вдалося створити: '+e.message)}};
@@ -266,7 +254,7 @@ function open(code){unG&&unG();room=code;first=true;vp={};D=null;$('lob').classL
 unG=onValue(ref(db,'pixelRooms/'+code),s=>{if(!s.exists()){lobby();return}g=s.val();g.order=g.order||[];g.owners=g.owners||{};
 if(g.players){Object.values(g.players).forEach(p=>{if(p&&p.photo)loadAv(p.photo)})}
 setTimeout(trRender,0);
-if(g.status=='waiting'){$('ov').style.display='block';$('wt').classList.remove('hid');$('fin').classList.add('hid');$('pl').innerHTML=g.order.map((id,i)=>{const p=g.players[id];const ph=(p&&p.photo)||(id===uid?getTgPhoto():'');const av=ph?'<img src="'+esc(ph)+'" style="width:20px;height:20px;border-radius:50%;vertical-align:middle;object-fit:cover;border:2px solid '+COL[i%6]+'"> ':'<span style="color:'+COL[i%6]+'">■</span> ';return av+esc(p.name)+(id==g.host?' ★':'')}).join('<br>');$('start').style.display=g.host==uid?'block':'none';$('start').disabled=g.order.length<2;$('shuffle').style.display=g.host==uid&&g.order.length>=2?'block':'none';return}
+if(g.status=='waiting'){$('ov').style.display='block';$('wt').classList.remove('hid');$('fin').classList.add('hid');$('pl').innerHTML=g.order.map((id,i)=>{const p=g.players[id];const ph=(p&&p.photo)||(id===uid?getTgPhoto():'');const av=ph?'<img src="'+esc(ph)+'" style="width:20px;height:20px;border-radius:50%;vertical-align:middle;object-fit:cover;border:2px solid '+COL[i%6]+'"> ':'<span style="color:'+COL[i%6]+'">■</span> ';return av+esc(p.name)+(id==g.host?' ★':'')}).join('<br>');$('start').style.display=g.host==uid?'block':'none';$('start').disabled=g.order.length<2;return}
 if(first){first=false;lastRid=g.rid;g.order.forEach(id=>{if(g.players[id])vp[id]=g.players[id].pos})}
 if(g.rid!==lastRid){lastRid=g.rid;toss(g.lastDice[0],g.lastDice[1])}
 if(g.status=='finished'){$('ov').style.display='block';$('wt').classList.add('hid');$('fin').classList.remove('hid');$('win').textContent='ПЕРЕМІГ '+pn(g,g.winner);$('stats').innerHTML=g.order.map(id=>{const p=g.players[id];return p?esc(p.name)+': '+(p.alive?Math.round(p.balance).toLocaleString('uk')+' ₴':'банкрут')+' · кіл '+(p.laps||0):''}).filter(Boolean).join('<br>')}else $('ov').style.display='none'})}
