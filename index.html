@@ -47,7 +47,7 @@ import{getAuth,signInAnonymously,onAuthStateChanged}from'https://www.gstatic.com
 import{getDatabase,ref,set,onValue,runTransaction,query,limitToLast,push}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 const app=initializeApp({apiKey:'AIzaSyBQNVeXBCqQi5eKhfjAQTJivwKzT9gXT0k',authDomain:'monopoly-fc387.firebaseapp.com',databaseURL:'https://monopoly-fc387-default-rtdb.firebaseio.com',projectId:'monopoly-fc387',storageBucket:'monopoly-fc387.firebasestorage.app',messagingSenderId:'748860996691',appId:'1:748860996691:web:731de9e774cee122991aa6'}),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id),COL=['#e05a5a','#49b87a','#e2b646','#5898dc','#9b6fd6','#e28743'],WL=150,MORT_TURNS=6;
-const S_PINK='#d85c94',S_SKY='#469fe0',S_BLUE='#3f7fd6',S_GOLD='#e0a838',S_RED='#d95c54',S_PURP='#8d68d6',S_GRN='#47b37b',S_IND='#546ad6',S_SAND='#c99b52',RAIL_COL='#7e8b9e',C_UTL='#7e8b9e',C_SPEC='#f3e7c7';
+const G1='#d66b78',G2='#4b9ad6',G3='#e0a838',G4='#4ba879',G5='#8e6fd4',RAIL_COL='#8b95a5',C_UTL='#8b95a5',C_SPEC='#f3e8ce';
 const AV={};
 function getTgUser(){
   try{return window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe&&Telegram.WebApp.initDataUnsafe.user||null}
@@ -116,40 +116,40 @@ function drawAvatar(cx,cy,r,p,col,initial,isMe){
 
 const CELLS=[
   {i:0,o:0,name:"СТАРТ",price:0,color:C_SPEC,type:"start"},
-  {i:1,o:1,name:"Старе місто",price:600,color:S_PINK,type:"property"},
-  {i:2,o:2,name:"Квіткова вулиця",price:600,color:S_PINK,type:"property"},
-  {i:3,o:4,name:"Сонячний квартал",price:1000,color:S_SKY,type:"property"},
-  {i:4,o:6,name:"Річкова набережна",price:1000,color:S_SKY,type:"property"},
-  {i:5,o:7,name:"Зелений парк",price:1200,color:S_SKY,type:"property"},
+  {i:1,o:1,name:"Старе місто",price:600,color:G1,type:"property"},
+  {i:2,o:2,name:"Квіткова вулиця",price:600,color:G1,type:"property"},
+  {i:3,o:4,name:"Сонячний квартал",price:1000,color:G2,type:"property"},
+  {i:4,o:6,name:"Річкова набережна",price:1000,color:G2,type:"property"},
+  {i:5,o:7,name:"Зелений парк",price:1200,color:G2,type:"property"},
   {i:6,o:3,name:"Шанс",price:0,color:C_SPEC,type:"chance"},
   {i:7,o:5,name:"Вокзал",price:2000,color:RAIL_COL,type:"rail"},
   {i:8,o:10,name:"ВІЗИТ",price:0,color:C_SPEC,type:"visit"},
-  {i:9,o:9,name:"Міська ратуша",price:1400,color:S_BLUE,type:"property"},
-  {i:10,o:11,name:"Карпатський край",price:1600,color:S_BLUE,type:"property"},
-  {i:11,o:12,name:"Лісова долина",price:1600,color:S_BLUE,type:"property"},
-  {i:12,o:14,name:"Гірське село",price:1800,color:S_GOLD,type:"property"},
-  {i:13,o:15,name:"Морська гавань",price:2000,color:S_GOLD,type:"property"},
-  {i:14,o:17,name:"Курортний берег",price:2000,color:S_GOLD,type:"property"},
-  {i:15,o:19,name:"Південний порт",price:2200,color:S_GOLD,type:"property"},
-  {i:16,o:8,name:"Податок",price:0,color:C_SPEC,type:"tax"},
+  {i:9,o:9,name:"Міська ратуша",price:1400,color:G3,type:"property"},
+  {i:10,o:11,name:"Карпатський край",price:1600,color:G3,type:"property"},
+  {i:11,o:12,name:"Лісова долина",price:1600,color:G3,type:"property"},
+  {i:12,o:14,name:"Гірське село",price:1800,color:G3,type:"property"},
+  {i:13,o:8,name:"Податок",price:0,color:C_SPEC,type:"tax"},
+  {i:14,o:15,name:"Морська гавань",price:2000,color:G4,type:"property"},
+  {i:15,o:17,name:"Курортний берег",price:2000,color:G4,type:"property"},
+  {i:16,o:19,name:"Південний порт",price:2200,color:G4,type:"property"},
   {i:17,o:18,name:"Скарбниця",price:0,color:C_SPEC,type:"chest"},
   {i:18,o:13,name:"Електростанція",price:1500,color:C_UTL,type:"utility"},
   {i:19,o:16,name:"Автовокзал",price:2000,color:RAIL_COL,type:"rail"},
   {i:20,o:20,name:"ПАРКОВКА",price:0,color:C_SPEC,type:"parking"},
-  {i:21,o:21,name:"Технопарк",price:2200,color:S_RED,type:"property"},
-  {i:22,o:24,name:"Промисловий вузол",price:2400,color:S_RED,type:"property"},
-  {i:23,o:26,name:"Культурна площа",price:2600,color:S_PURP,type:"property"},
-  {i:24,o:27,name:"Театральний квартал",price:2600,color:S_PURP,type:"property"},
-  {i:25,o:23,name:"Індустріальний парк",price:2200,color:S_GRN,type:"property"},
+  {i:21,o:21,name:"Технопарк",price:2200,color:G4,type:"property"},
+  {i:22,o:23,name:"Індустріальний парк",price:2200,color:G4,type:"property"},
+  {i:23,o:24,name:"Промисловий вузол",price:2400,color:G5,type:"property"},
+  {i:24,o:26,name:"Культурна площа",price:2600,color:G5,type:"property"},
+  {i:25,o:27,name:"Театральний квартал",price:2600,color:G5,type:"property"},
   {i:26,o:22,name:"Шанс",price:0,color:C_SPEC,type:"chance"},
   {i:27,o:25,name:"Аеропорт",price:2000,color:RAIL_COL,type:"rail"},
   {i:28,o:30,name:"ПЕРЕХІД",price:0,color:C_SPEC,type:"jail"},
-  {i:29,o:29,name:"Мистецький центр",price:2800,color:S_GRN,type:"property"},
-  {i:30,o:31,name:"Золотий проспект",price:3000,color:S_GRN,type:"property"},
-  {i:31,o:33,name:"Ділова вежа",price:3000,color:S_IND,type:"property"},
-  {i:32,o:34,name:"Мегаполіс",price:3200,color:S_IND,type:"property"},
-  {i:33,o:37,name:"Урядовий квартал",price:3500,color:S_SAND,type:"property"},
-  {i:34,o:39,name:"Столичний центр",price:4000,color:S_SAND,type:"property"},
+  {i:29,o:29,name:"Мистецький центр",price:2800,color:G5,type:"property"},
+  {i:30,o:31,name:"Золотий проспект",price:3000,color:G5,type:"property"},
+  {i:31,o:33,name:"Ділова вежа",price:3000,color:G1,type:"property"},
+  {i:32,o:34,name:"Мегаполіс",price:3200,color:G1,type:"property"},
+  {i:33,o:37,name:"Урядовий квартал",price:3500,color:G2,type:"property"},
+  {i:34,o:39,name:"Столичний центр",price:4000,color:G2,type:"property"},
   {i:35,o:32,name:"Столичний збір",price:0,color:C_SPEC,type:"tax"},
   {i:36,o:36,name:"Шанс",price:0,color:C_SPEC,type:"chance"},
   {i:37,o:38,name:"Скарбниця",price:0,color:C_SPEC,type:"chest"},
@@ -196,15 +196,15 @@ function pic(cell,k,cx,cy,s,col){const im=IM[cell.i];if(im){const q=Math.min(s*1
 const STY=['house','columns','tower','sky'],KIND={rail:'plane',utility:'bolt',chance:'q',chest:'bag',tax:'tax',start:'flag',visit:'bars',parking:'park',jail:'siren'},LBL={start:'СТАРТ',visit:'В’ЯЗНИЦЯ',parking:'СТОЯНКА',jail:'ПІД АРЕШТ'};
 const taxAmt=G=>G&&G.mode=='hard'?2000:1000;
 function tagLabel(cell,oi,ml){if(oi<0)return String(cell.price);if(ml>0)return 'ЗС '+ml+'х';return String(rentOf(g,cell.i))}
-function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#fff';x.fillText(s,0,0);x.restore()}
-function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#faf8f2':'#f4e9cb',ml=mortLeft(g,cell.i);
-rr(X+1,Y+1,w-2,h-2,4,base,'#232c45',1.1);if(oi>=0){x.globalAlpha=.26;rr(X+1,Y+1,w-2,h-2,4,COL[oi%6]);x.globalAlpha=1}
+function drawTagText(txt,cx,cy,maxW,rot){x.save();x.translate(cx,cy);if(rot)x.rotate(rot);x.font='800 8.5px '+FN;x.textBaseline='middle';x.textAlign='center';const s=cut(txt,maxW);x.fillStyle='#1c253b';x.fillText(s,0,0);x.restore()}
+function tile(cell){const r=R(cell.i),X=r.x,Y=r.y,w=r.w,h=r.h,s=r.s,oi=oidx(cell.i),ow=isO(cell),base=ow?'#fcfaf4':'#f3e8ce',ml=mortLeft(g,cell.i);
+rr(X+1,Y+1,w-2,h-2,4,base,'#232c45',1.1);if(oi>=0){x.globalAlpha=.22;rr(X+1,Y+1,w-2,h-2,4,COL[oi%6]);x.globalAlpha=1}
 let cx0=X+1,cy0=Y+1,cw=w-2,ch=h-2;
-if(ow){const tg=14,tagText=tagLabel(cell,oi,ml);x.fillStyle=cell.color;
-if(s=='t'){x.fillRect(X+1,Y+1,w-2,tg);drawTagText(tagText,X+w/2,Y+1+tg/2+.3,w-3,0);cy0+=tg;ch-=tg}
-else if(s=='b'){x.fillRect(X+1,Y+h-1-tg,w-2,tg);drawTagText(tagText,X+w/2,Y+h-1-tg/2+.3,w-3,0);ch-=tg}
-else if(s=='l'){x.fillRect(X+1,Y+1,tg,h-2);drawTagText(tagText,X+1+tg/2,Y+h/2,h-3,-Math.PI/2);cx0+=tg;cw-=tg}
-else{x.fillRect(X+w-1-tg,Y+1,tg,h-2);drawTagText(tagText,X+w-1-tg/2,Y+h/2,h-3,Math.PI/2);cw-=tg}}
+if(ow){const tg=13,barW=3.5,tagText=tagLabel(cell,oi,ml);x.fillStyle='#e8ecf4';
+if(s=='t'){x.fillRect(X+1,Y+1,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+1+tg-barW,w-2,barW);drawTagText(tagText,X+w/2,Y+1+(tg-barW)/2+.2,w-3,0);cy0+=tg;ch-=tg}
+else if(s=='b'){x.fillRect(X+1,Y+h-1-tg,w-2,tg);x.fillStyle=cell.color;x.fillRect(X+1,Y+h-1-tg,w-2,barW);drawTagText(tagText,X+w/2,Y+h-1-barW-(tg-barW)/2+.2,w-3,0);ch-=tg}
+else if(s=='l'){x.fillRect(X+1,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+1+tg-barW,Y+1,barW,h-2);drawTagText(tagText,X+1+(tg-barW)/2,Y+h/2,h-3,-Math.PI/2);cx0+=tg;cw-=tg}
+else{x.fillRect(X+w-1-tg,Y+1,tg,h-2);x.fillStyle=cell.color;x.fillRect(X+w-1-tg,Y+1,barW,h-2);drawTagText(tagText,X+w-1-barW-(tg-barW)/2,Y+h/2,h-3,Math.PI/2);cw-=tg}}
 const k=cell.type=='property'?STY[gstyle(cell.color)]:KIND[cell.type];
 if(s=='c'){pic(cell,k,X+w/2,Y+h*.4,Math.min(w,h)*.62,cell.color);T(LBL[cell.type]||'',X+w/2,Y+h-10,'#3b352a',Math.max(8.5,w*.115),'center',800)}
 else if(!ow){pic(cell,k,X+w/2,Y+h/2,Math.min(w,h)*.96,cell.color)}
