@@ -190,35 +190,4 @@ $('rooms').innerHTML=a.length?a.map(r=>'<div class="room"><div><b>'+esc(r.code)+
 try{const tu=window.Telegram&&Telegram.WebApp;tu&&tu.ready();tu&&tu.expand();const u=tu&&tu.initDataUnsafe&&tu.initDataUnsafe.user;if(u)$('nm').value=(u.first_name||'').slice(0,20)}catch(e){}
 onAuthStateChanged(auth,u=>{if(u){uid=u.uid;$('st').style.display='none';rooms();const c=new URLSearchParams(location.search).get('room');if(c)join(c)}});
 signInAnonymously(auth).catch(e=>{$('st').textContent='помилка входу';alert('Увімкніть Anonymous Authentication у Firebase: '+e.code)});
-// Монополія Україна 4.0 — вставити перед </script> оригінального модуля.
-const V4TG=window.Telegram?.WebApp;
-const V4PHOTO=()=>{const s=V4TG?.initDataUnsafe?.user?.photo_url||'';return /^https:\/\//i.test(s)?s:''};
-const V4AV=new Map();
-function v4Avatar(p,a,b,r,col){
- const url=p.photo||'';let im=V4AV.get(url);
- if(url&&/^https:\/\//i.test(url)&&!im){im=new Image();V4AV.set(url,im);im.src=url;}
- x.save();x.beginPath();x.arc(a,b,r,0,Math.PI*2);x.clip();
- x.fillStyle=col;x.fillRect(a-r,b-r,r*2,r*2);
- if(im?.complete&&im.naturalWidth){const z=Math.min(im.naturalWidth,im.naturalHeight);x.drawImage(im,(im.naturalWidth-z)/2,(im.naturalHeight-z)/2,z,z,a-r,b-r,r*2,r*2)}else T((Array.from(noE(p.name))[0]||'?').toUpperCase(),a,b,'#142033',r,'center',900);
- x.restore();x.beginPath();x.arc(a,b,r,0,Math.PI*2);x.strokeStyle=col;x.lineWidth=2;x.stroke();
-}
-const v4Open=open;
-open=function(code){v4Open(code);localStorage.setItem('monopolyRoom',code);const photo=V4PHOTO();if(photo)runTransaction(ref(db,'pixelRooms/'+code+'/players/'+uid),p=>p?{...p,photo}:undefined,{applyLocally:false}).catch(()=>{});};
-const v4Lobby=lobby;
-lobby=function(){localStorage.removeItem('monopolyRoom');v4Lobby();document.querySelectorAll('#bar button').forEach(b=>b.style.display='none');};
-const v4Fit=fit;
-fit=function(){DPR=Math.min(3,devicePixelRatio||1);W=innerWidth;H=Math.max(240,(V4TG?.viewportStableHeight||innerHeight)-142);cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);cv.style.width=W+'px';cv.style.height=H+'px';x.setTransform(DPR,0,0,DPR,0,0);const n=g?.order?.length||2,cl=2;BY=30+Math.ceil(n/cl)*44;const hb=Math.max(100,H-BY-4);CS=Math.max(22,Math.min(W*.21,hb*.16));tw=(W-2*CS)/7;th=(hb-2*CS)/11;ix=CS;iy=BY+CS;iw=W-2*CS;ih=11*th;U=W/150;HL=H/U;ixL=ix/U;iyL=iy/U;iwL=iw/U;ihL=ih/U;};
-removeEventListener('resize',v4Fit);addEventListener('resize',fit);V4TG?.onEvent?.('viewportChanged',fit);fit();
-cardRect=function(i){const cw=(W-12)/2;return{x:6+i%2*cw,y:30+Math.floor(i/2)*44,w:cw-5,h:40}};
-const v4Draw=draw;
-draw=function(){v4Draw();if(!g||g.status==='waiting')return;g.order.forEach((id,i)=>{const p=g.players[id],r=cardRect(i);x.globalAlpha=p.alive?1:.45;v4Avatar(p,r.x+26,r.y+r.h/2,17,COL[i%6]);if(p.jail>0)T('🔒',r.x+40,r.y+33,'#fff',12,'center');x.globalAlpha=1;});g.order.forEach((id,i)=>{const p=g.players[id];if(!p.alive)return;const r=R(vp[id]??p.pos),a=r.x+r.w/2+(i%2?7:-7),b=r.y+r.h/2+(i>1?7:-7),hh=hopId===id&&hop>0?Math.sin((10-hop)/10*Math.PI)*12:0;v4Avatar(p,a,b-hh,8,COL[i%6]);});};
-const v4Tile=tile;
-tile=function(c){v4Tile(c);const r=R(c.i);if(!isO(c))return;const fs=Math.max(7,Math.min(10,r.h*.26));x.save();x.beginPath();x.rect(r.x+2,r.y+2,r.w-4,r.h-4);x.clip();x.font='900 '+fs+'px '+FN;const s=cut(c.name,r.w-5);rr(r.x+2,r.y+r.h-fs-3,r.w-4,fs+1,2,'#fff5e5e8');T(s,r.x+r.w/2,r.y+r.h-fs/2-2,'#182b42',fs,'center',900);x.restore();};
-const v4Style=document.createElement('style');v4Style.textContent=`html,body{background:#101e33}#ov{background:radial-gradient(ellipse at top,#244a70,#081426 75%)!important}.bx{padding-top:32px}h1{letter-spacing:1px}input,select,.room,.tb,#tbn{background:#142940;border-color:#38516c}button{letter-spacing:0;border-radius:10px}#bar{bottom:calc(49px + env(safe-area-inset-bottom,0px));gap:4px!important}#bar button{font-size:11px;padding:8px 5px;min-width:28%;max-width:48%}#chat input{background:#142940;border-color:#38516c}#pl{font-size:15px}.tb{box-sizing:border-box}.it{border-color:#38516c}`;document.head.append(v4Style);
-document.title='Монополія Україна 4.0';document.querySelector('#lob .sub').textContent='УКРАЇНА · 4.0';
-$('exit').onclick=()=>{if(g&&confirm('Вийти до лобі? Ви зможете повернутися за кодом кімнати.'))lobby()};
-// Запобігає нескінченній анімації кубиків.
-const v4Step=step;step=function(d){v4Step(d);if(d.t>240){d.rest=1;d.in=1;d.z=0;d.vx=d.vy=0;d.v=d.f;d.a=0;d.x=ixL+iwL/2+(D?.[0]===d?-9:9);d.y=iyL+ihL/2;}};
-const v4Coll=coll;coll=function(){if(D?.every(d=>d.rest))return;v4Coll();};
-
 </script></body></html>
