@@ -1,7 +1,7 @@
-<!DOCTYPE html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#08172e"><script src="https://telegram.org/js/telegram-web-app.js"></script><link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap&subset=cyrillic" rel="stylesheet"><title>Монополія Україна Pixel</title>
-<style>html,body{margin:0;height:100%;background:#08172e;overflow:hidden;touch-action:manipulation;font-family:"Nunito",monospace}
+<!DOCTYPE html><html lang="uk"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><meta name="theme-color" content="#08172e"><script src="https://telegram.org/js/telegram-web-app.js" defer></script><title>Монополія Україна Pixel</title>
+<style>html,body{margin:0;height:100%;background:#08172e;overflow:hidden;touch-action:manipulation;font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
 canvas{display:block;margin:0 auto}#ov{background:radial-gradient(ellipse at 50% 0%,#2b2118,#0c0907)!important}
-button{font:900 16px "Nunito",system-ui,sans-serif;color:#2a1a00;background:linear-gradient(#ffe27a,#f0a800);border:0;padding:13px 18px;border-radius:14px;letter-spacing:.5px;box-shadow:0 4px 0 #a06a00,0 6px 14px rgba(0,0,0,.4)}
+button{font:900 16px system-ui,sans-serif;color:#2a1a00;background:linear-gradient(#ffe27a,#f0a800);border:0;padding:13px 18px;border-radius:14px;letter-spacing:.5px;box-shadow:0 4px 0 #a06a00,0 6px 14px rgba(0,0,0,.4)}
 button:active{transform:translateY(3px);box-shadow:0 1px 0 #a06a00}button:disabled{opacity:.45}button.b{background:linear-gradient(#4aa8ff,#1f5fd0);color:#fff;box-shadow:0 4px 0 #123a8a,0 6px 14px rgba(0,0,0,.4)}button.red{background:linear-gradient(#ff7a5a,#d02f1a);color:#fff;box-shadow:0 3px 0 #801a0c;padding:8px 18px;font-size:14px}
 #exit{position:fixed;top:6px;right:8px;z-index:8;padding:4px 12px!important;font-size:12px!important;border-radius:10px!important}
 #mnb{position:fixed;top:6px;right:78px;z-index:8;padding:4px 12px!important;font-size:14px!important;border-radius:10px!important;display:none}
@@ -14,7 +14,7 @@ button:active{transform:translateY(3px);box-shadow:0 1px 0 #a06a00}button:disabl
 #aucBtn{display:inline-block!important;flex:none!important;padding:8px 12px!important;font-size:13px!important}
 #ov{position:fixed;inset:0;background:#08172e;z-index:9;overflow:auto;color:#fff;font-size:14px}.bx{width:min(360px,92vw);margin:0 auto;padding:22px 0 40px}
 h1{font-size:30px;color:#ffd23f;text-shadow:0 3px 0 #6a4a00;text-align:center;margin:8px 0 2px;letter-spacing:3px}.sub{text-align:center;color:#7f8fb3;margin:0 0 16px;font-size:12px}
-input,select{width:100%;box-sizing:border-box;background:#1a1510;border:2px solid #4a3a22;color:#fff;font:800 16px "Nunito",sans-serif;padding:12px;margin-bottom:10px;border-radius:12px}
+input,select{width:100%;box-sizing:border-box;background:#1a1510;border:2px solid #4a3a22;color:#fff;font:800 16px system-ui,sans-serif;padding:12px;margin-bottom:10px;border-radius:12px}
 .r{display:flex;gap:8px}.r input{margin:0}h3{margin:16px 0 8px;font-size:13px;color:#7f8fb3}.room{display:flex;justify-content:space-between;align-items:center;background:#1a1510;border:2px solid #4a3a22;border-radius:14px;padding:8px 10px;margin-bottom:8px}.room button{padding:8px 12px;font-size:13px}
 #st{position:fixed;left:8px;bottom:2px;font-size:10px;color:#7f8fb3;z-index:10;pointer-events:none}#cd{color:#ffd23f;font-size:26px;letter-spacing:4px}#pl{line-height:1.9;margin:12px 0}.hid{display:none}
 button.wide{width:100%;margin-bottom:8px}#tm{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:20;display:grid;place-items:center;padding:12px}#tm.hid{display:none}
@@ -41,7 +41,7 @@ button.wide{width:100%;margin-bottom:8px}#tm{position:fixed;inset:0;background:r
   <button id="pay">СПЛАТИТИ</button>
   <button id="end" class="b">ЗАВЕРШИТИ ХІД</button>
 </div>
-<div id="tm" class="hid"></div><div id="mn" class="hid"></div><div id="ti" class="hid"></div><button id="mnb" class="red">☰</button><div id="tbn"></div><div id="chat"><input id="ci" maxlength="80" placeholder="Написати повідомлення…" autocomplete="off"><button id="cs">➤</button></div><button id="exit" class="red">Вихід</button><div id="st">Авторизація…</div>
+<div id="tm" class="hid"></div><div id="mn" class="hid"></div><div id="ti" class="hid"></div><button id="mnb" class="red">☰</button><div id="tbn"></div><div id="chat"><input id="ci" maxlength="80" placeholder="Написати повідомлення…" autocomplete="off"><button id="cs">➤</button></div><button id="exit" class="red">Вихід</button><div id="st">Підключення…</div>
 <div id="ov"><div class="bx">
 <div id="lob"><h1>МОНОПОЛІЯ</h1><div class="sub">УКРАЇНА · PIXEL</div><input id="nm" maxlength="20" placeholder="Твоє ім’я"><select id="mode"><option value="classic">Класичний</option><option value="fast">Швидкий</option><option value="rich">Багатій</option><option value="hard">Хардкор</option></select><button id="cont" class="wide hid">ПРОДОВЖИТИ ГРУ</button><button id="create" class="wide">СТВОРИТИ КІМНАТУ</button><div class="r"><input id="rc" placeholder="Код кімнати" maxlength="6"><button id="join" class="b">УВІЙТИ</button></div><h3>ВІДКРИТІ КІМНАТИ</h3><div id="rooms">Завантаження…</div><h3>ТОП ГРАВЦІВ</h3><div id="top"></div></div>
 <div id="wt" class="hid"><div class="sub">КОД КІМНАТИ</div><div style="text-align:center"><span id="cd"></span></div><div id="pl"></div><button id="start" class="wide">ПОЧАТИ ГРУ</button><button id="back" class="wide b">← ЛОБІ</button><div class="sub">2–6 гравців</div></div>
@@ -52,48 +52,25 @@ import{getAuth,signInAnonymously,onAuthStateChanged}from'https://www.gstatic.com
 import{getDatabase,ref,set,onValue,runTransaction,query,limitToLast,push,onDisconnect,get}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 const app=initializeApp({apiKey:'AIzaSyBQNVeXBCqQi5eKhfjAQTJivwKzT9gXT0k',authDomain:'monopoly-fc387.firebaseapp.com',databaseURL:'https://monopoly-fc387-default-rtdb.firebaseio.com',projectId:'monopoly-fc387',storageBucket:'monopoly-fc387.firebasestorage.app',messagingSenderId:'748860996691',appId:'1:748860996691:web:731de9e774cee122991aa6'}),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id),COL=['#ff4d4d','#3ddc84','#ffd23f','#4aa8ff','#b46bff','#ff9f1c'];
-// Вокзал перенесено вліво на позицію замість Сонячного кварталу
 const RAW=[["СТАРТ",0,"#fff0b6","start"],["Старе місто",600,"#d8a4ee","property"],["Квіткова вулиця",600,"#d8a4ee","property"],["Шанс",0,"#f9df73","chance"],["Вокзал",2000,"#f0b761","rail"],["Сонячний квартал",1000,"#74c4e7","property"],["Річкова набережна",1000,"#74c4e7","property"],["Зелений парк",1200,"#74c4e7","property"],["Податок",0,"#ef7777","tax"],["Міська ратуша",1400,"#e3a9ce","property"],["ВІЗИТ",0,"#fff0b6","visit"],["Карпатський край",1600,"#e3a9ce","property"],["Лісова долина",1600,"#e3a9ce","property"],["Електростанція",1500,"#eac777","utility"],["Гірське село",1800,"#e3a9ce","property"],["Морська гавань",1800,"#e8aa71","property"],["Автовокзал",2000,"#f0b761","rail"],["Курортний берег",2000,"#e8aa71","property"],["Скарбниця",0,"#e9d67e","chest"],["Південний порт",2200,"#e8aa71","property"],["ПАРКОВКА",0,"#fff0b6","parking"],["Технопарк",2200,"#ef7d8b","property"],["Шанс",0,"#f9df73","chance"],["Індустріальний парк",2200,"#ef7d8b","property"],["Промисловий вузол",2400,"#ef7d8b","property"],["Аеропорт",2000,"#f0b761","rail"],["Культурна площа",2600,"#f2d16d","property"],["Театральний квартал",2600,"#f2d16d","property"],["Водоканал",1500,"#eac777","utility"],["Мистецький центр",2800,"#f2d16d","property"],["ПЕРЕХІД",0,"#fff0b6","jail"],["Золотий проспект",3000,"#7bce9d","property"],["Столичний збір",0,"#ef7777","tax"],["Ділова вежа",3000,"#7bce9d","property"],["Мегаполіс",3200,"#7bce9d","property"],["Метрополітен",2000,"#f0b761","rail"],["Шанс",0,"#f9df73","chance"],["Урядовий квартал",3500,"#7fa8ef","property"],["Скарбниця",0,"#e9d67e","chest"],["Столичний центр",4000,"#7fa8ef","property"]].map((r,k)=>({o:k,name:r[0],price:r[1],color:r[2],type:r[3]})),isO=c=>['property','rail','utility'].includes(c.type);
 const CELLS=(()=>{const cr=['start','visit','parking','jail'].map(k=>RAW.find(c=>c.type==k)),rest=RAW.filter(c=>!cr.includes(c)),out=[],pos={0:cr[0],8:cr[1],20:cr[2],28:cr[3]};let q=0;for(let i=0;i<40;i++)out.push(Object.assign({i},pos[i]||rest[q++]));return out})();
 const IM={};
 const noE=s=>String(s||'').replace(/\s+/g,' ').trim(),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-// Швидке неблокуюче завантаження картинок клітинок
-CELLS.forEach(c=>{
-  const im=new Image();
-  im.decoding='async';
-  im.onload=()=>{IM[c.i]=im};
-  im.onerror=()=>{};
-  im.src='tiles/'+c.o+'.png';
-});
-const cv=$('c'),x=cv.getContext('2d'),FN='"Nunito",system-ui,sans-serif';
+CELLS.forEach(c=>{const im=new Image();im.decoding='async';im.onload=()=>{IM[c.i]=im};im.onerror=()=>{};im.src='tiles/'+c.o+'.png'});
+const cv=$('c'),x=cv.getContext('2d'),FN='system-ui,sans-serif';
 let W,H,DPR,U,HL,CS,tw,th,BY=88,ix,iy,iw,ih,ixL,iyL,iwL,ihL;
 function fit(){
-  DPR=Math.min(3,window.devicePixelRatio||1);
-  W=innerWidth;
-  H=innerHeight-126;
-  cv.width=Math.round(W*DPR);
-  cv.height=Math.round(H*DPR);
-  cv.style.width=W+'px';
-  cv.style.height=H+'px';
+  DPR=Math.min(3,window.devicePixelRatio||1);W=innerWidth;H=innerHeight-126;
+  cv.width=Math.round(W*DPR);cv.height=Math.round(H*DPR);cv.style.width=W+'px';cv.style.height=H+'px';
   x.setTransform(DPR,0,0,DPR,0,0);
-  let n=2;
-  try{n=g&&g.order?g.order.length:2}catch(e){}
+  let n=2;try{n=g&&g.order?g.order.length:2}catch(e){}
   const cl=n<=3?n:n==4?2:3;
   BY=36+Math.ceil(n/cl)*50+4;
   const Hb=Math.max(220,H-BY-4);
   CS=Math.round(Math.min(W*.19,(Hb-11*28)/2));
-  tw=(W-2*CS)/7;
-  th=(Hb-2*CS)/11;
-  ix=CS;
-  iy=BY+CS;
-  iw=W-2*CS;
-  ih=11*th;
-  U=W/150;
-  HL=H/U;
-  ixL=ix/U;
-  iyL=iy/U;
-  iwL=iw/U;
-  ihL=ih/U;
+  tw=(W-2*CS)/7;th=(Hb-2*CS)/11;
+  ix=CS;iy=BY+CS;iw=W-2*CS;ih=11*th;
+  U=W/150;HL=H/U;ixL=ix/U;iyL=iy/U;iwL=iw/U;ihL=ih/U;
 }
 fit();addEventListener('resize',fit);
 function R(i){if(i==0)return{x:0,y:BY,w:CS,h:CS,s:'c'};if(i<=7)return{x:CS+(i-1)*tw,y:BY,w:tw,h:CS,s:'t'};if(i==8)return{x:W-CS,y:BY,w:CS,h:CS,s:'c'};if(i<=19)return{x:W-CS,y:BY+CS+(i-9)*th,w:CS,h:th,s:'r'};if(i==20)return{x:W-CS,y:BY+CS+11*th,w:CS,h:CS,s:'c'};if(i<=27)return{x:CS+(27-i)*tw,y:BY+CS+11*th,w:tw,h:CS,s:'b'};if(i==28)return{x:0,y:BY+CS+11*th,w:CS,h:CS,s:'c'};return{x:0,y:BY+CS+(39-i)*th,w:CS,h:th,s:'l'}}
@@ -338,19 +315,6 @@ $('cs').onclick=()=>sendChat();$('ci').onkeydown=e=>{if(e.key=='Enter'){e.preven
 let toff=0;onValue(ref(db,'.info/serverTimeOffset'),s=>{toff=s.val()||0});const now=()=>Date.now()+toff;
 const AUC_T=12000,AUC_RE=6000;let tdr=null,aT=0;
 function startAuction(G){const p=G.players[cur(G)],c=CELLS[p.pos];G.auction={i:p.pos,bid:0,leader:'',end:now()+AUC_T,min:Math.max(50,Math.round(c.price*.1))};G.phase='auction';L(G,'Аукціон: '+c.name)}
-let aucDraft=0,aucLastKey='';
-function syncAuctionUi(au,me,can){
-  const box=$('aucBox'),sl=$('aucSlider'),val=$('aucVal'),btn=$('aucBtn');
-  if(!can||!au||!me){box.classList.remove('show');aucLastKey='';return}
-  box.classList.add('show');
-  const minBid=Math.max(au.min||50,(au.bid||0)+50);
-  const maxBid=Math.max(minBid,Math.floor(me.balance/50)*50);
-  const key=au.i+':'+(au.bid||0)+':'+minBid+':'+maxBid;
-  sl.min=minBid;sl.max=maxBid;sl.step=50;
-  if(key!==aucLastKey){aucLastKey=key;aucDraft=minBid;sl.value=aucDraft}
-  const curVal=Math.min(maxBid,Math.max(minBid,Number(sl.value)||minBid));
-  aucDraft=curVal;val.textContent=curVal+'';btn.disabled=me.balance<curVal;
-}
 $('aucSlider').oninput=()=>{aucDraft=Number($('aucSlider').value)||0;$('aucVal').textContent=String(aucDraft)};
 $('aucBtn').onclick=()=>mutate(G=>{
   const a=G.auction,p=G.players[uid];
@@ -425,7 +389,7 @@ $('again').onclick=()=>mutate(G=>{if(G.host!=uid||G.status!='finished')return fa
 $('start').onclick=()=>mutate(G=>{if(G.host!=uid||G.status!='waiting'||G.order.length<2)return false;G.status='playing';G.phase='roll';G.turn=0;G.gid=Date.now();G.round=1;G.pot=0;setTurn(G);L(G,'Партію розпочато')});
 const myPh=(()=>{try{const u=Telegram.WebApp.initDataUnsafe.user;if(!u)return '';if(/^https:\/\//.test(u.photo_url||''))return u.photo_url;return u.username?'https://t.me/i/userpic/320/'+u.username+'.jpg':''}catch(e){return ''}})();
 const nm=()=>($('nm').value.trim()||(window.Telegram&&Telegram.WebApp&&Telegram.WebApp.initDataUnsafe.user&&Telegram.WebApp.initDataUnsafe.user.first_name)||'Гравець').slice(0,20),bal=m=>m=='rich'?30000:m=='hard'?10000:15000;
-$('create').onclick=async()=>{if(!uid)return alert('Зачекайте на авторизацію');const code=Math.random().toString(36).slice(2,8).toUpperCase(),m=$('mode').value;try{await set(ref(db,'pixelRooms/'+code),{code,mode:m,host:uid,status:'waiting',created:Date.now(),players:{[uid]:{name:nm(),ph:myPh,balance:bal(m),pos:0,alive:true}},order:[uid],turn:0,phase:'roll',owners:{},logs:[{id:1,t:'Кімнату створено'}],lastDice:[1,1],rid:0,winner:'',gid:0,round:1,pot:0});open(code)}catch(e){alert('Не вдалося створити: '+e.message)}};
+$('create').onclick=async()=>{if(!uid)return alert('Зачекайте на підключення');const code=Math.random().toString(36).slice(2,8).toUpperCase(),m=$('mode').value;try{await set(ref(db,'pixelRooms/'+code),{code,mode:m,host:uid,status:'waiting',created:Date.now(),players:{[uid]:{name:nm(),ph:myPh,balance:bal(m),pos:0,alive:true}},order:[uid],turn:0,phase:'roll',owners:{},logs:[{id:1,t:'Кімнату створено'}],lastDice:[1,1],rid:0,winner:'',gid:0,round:1,pot:0});open(code)}catch(e){alert('Не вдалося створити: '+e.message)}};
 async function join(code){code=String(code||'').trim().toUpperCase();if(!/^[A-Z0-9]{6}$/.test(code))return alert('Код має містити 6 символів');try{const r=await runTransaction(ref(db,'pixelRooms/'+code),G=>{if(!G)return;G.players=G.players||{};G.order=G.order||[];if(!G.players[uid]){if(G.status!='waiting'||G.order.length>=6)return;G.players[uid]={name:nm(),ph:myPh,balance:bal(G.mode),pos:0,alive:true};G.order.push(uid);L(G,nm()+' приєднався')}else if(myPh)G.players[uid].ph=myPh;return G},{applyLocally:false});if(!r.committed)return alert('Кімнату не знайдено, гра йде або немає місць');open(code)}catch(e){alert('Помилка входу: '+e.message)}}
 $('join').onclick=()=>join($('rc').value);
 let recd={},lastGid=null,pres=false;
@@ -442,6 +406,45 @@ $('exit').onclick=()=>{if(g)lobby()};$('back').onclick=lobby;$('back2').onclick=
 function rooms(){unR&&unR();unR=onValue(query(ref(db,'pixelRooms'),limitToLast(30)),s=>{const a=Object.values(s.val()||{}).filter(r=>r.status=='waiting'&&r.order&&r.order.length<6).sort((p,q)=>q.created-p.created).slice(0,15);
 $('rooms').innerHTML=a.length?a.map(r=>'<div class="room"><div><b>'+esc(r.code)+'</b><br><small>'+esc(({classic:'Класичний',fast:'Швидкий',rich:'Багатій',hard:'Хардкор'})[r.mode]||r.mode)+' · '+r.order.length+'/6</small></div><button data-r="'+esc(r.code)+'">УВІЙТИ</button></div>').join(''):'Відкритих кімнат немає';$('rooms').querySelectorAll('[data-r]').forEach(b=>b.onclick=()=>join(b.dataset.r))},e=>{$('rooms').textContent='Помилка: '+e.message})}
 try{const tu=window.Telegram&&Telegram.WebApp;tu&&tu.ready();tu&&tu.expand();const u=tu&&tu.initDataUnsafe&&tu.initDataUnsafe.user;if(u)$('nm').value=(u.first_name||'').slice(0,20)}catch(e){}
-onAuthStateChanged(auth,u=>{if(u){uid=u.uid;$('st').style.display='none';rooms();topList();checkCont();const c=new URLSearchParams(location.search).get('room');if(c)join(c)}});
-signInAnonymously(auth).catch(e=>{$('st').textContent='помилка входу';alert('Увімкніть Anonymous Authentication у Firebase: '+e.code)});
+
+let booted=false;
+function boot(uId){
+  if(!uId)return;
+  uid=uId;
+  sv('cachedUid',uId);
+  $('st').style.display='none';
+  if(booted)return;
+  booted=true;
+  rooms();
+  topList();
+  checkCont();
+  const c=new URLSearchParams(location.search).get('room');
+  if(c)join(c);
+}
+
+// Миттєвий старт із кешованого або локального ID, без очікування мережевої авторизації
+try{
+  const saved=localStorage.getItem('cachedUid');
+  if(saved)boot(saved);
+}catch(e){}
+
+const authTimer=setTimeout(()=>{
+  if(!uid){
+    const fallback='guest_'+Math.random().toString(36).slice(2,12);
+    boot(fallback);
+  }
+},2500);
+
+onAuthStateChanged(auth,u=>{
+  if(u){
+    clearTimeout(authTimer);
+    boot(u.uid);
+  }
+});
+signInAnonymously(auth).catch(()=>{
+  if(!uid){
+    clearTimeout(authTimer);
+    boot('guest_'+Math.random().toString(36).slice(2,12));
+  }
+});
 </script></body></html>
