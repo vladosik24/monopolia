@@ -52,11 +52,19 @@ import{getAuth,signInAnonymously,onAuthStateChanged}from'https://www.gstatic.com
 import{getDatabase,ref,set,onValue,runTransaction,query,limitToLast,push,onDisconnect,get}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js';
 const app=initializeApp({apiKey:'AIzaSyBQNVeXBCqQi5eKhfjAQTJivwKzT9gXT0k',authDomain:'monopoly-fc387.firebaseapp.com',databaseURL:'https://monopoly-fc387-default-rtdb.firebaseio.com',projectId:'monopoly-fc387',storageBucket:'monopoly-fc387.firebasestorage.app',messagingSenderId:'748860996691',appId:'1:748860996691:web:731de9e774cee122991aa6'}),auth=getAuth(app),db=getDatabase(app);
 const $=id=>document.getElementById(id),COL=['#ff4d4d','#3ddc84','#ffd23f','#4aa8ff','#b46bff','#ff9f1c'];
-const RAW=[["СТАРТ",0,"#fff0b6","start"],["Старе місто",600,"#d8a4ee","property"],["Квіткова вулиця",600,"#d8a4ee","property"],["Шанс",0,"#f9df73","chance"],["Сонячний квартал",1000,"#74c4e7","property"],["Вокзал",2000,"#f0b761","rail"],["Річкова набережна",1000,"#74c4e7","property"],["Зелений парк",1200,"#74c4e7","property"],["Податок",0,"#ef7777","tax"],["Міська ратуша",1400,"#e3a9ce","property"],["ВІЗИТ",0,"#fff0b6","visit"],["Карпатський край",1600,"#e3a9ce","property"],["Лісова долина",1600,"#e3a9ce","property"],["Електростанція",1500,"#eac777","utility"],["Гірське село",1800,"#e3a9ce","property"],["Морська гавань",1800,"#e8aa71","property"],["Автовокзал",2000,"#f0b761","rail"],["Курортний берег",2000,"#e8aa71","property"],["Скарбниця",0,"#e9d67e","chest"],["Південний порт",2200,"#e8aa71","property"],["ПАРКОВКА",0,"#fff0b6","parking"],["Технопарк",2200,"#ef7d8b","property"],["Шанс",0,"#f9df73","chance"],["Індустріальний парк",2200,"#ef7d8b","property"],["Промисловий вузол",2400,"#ef7d8b","property"],["Аеропорт",2000,"#f0b761","rail"],["Культурна площа",2600,"#f2d16d","property"],["Театральний квартал",2600,"#f2d16d","property"],["Водоканал",1500,"#eac777","utility"],["Мистецький центр",2800,"#f2d16d","property"],["ПЕРЕХІД",0,"#fff0b6","jail"],["Золотий проспект",3000,"#7bce9d","property"],["Столичний збір",0,"#ef7777","tax"],["Ділова вежа",3000,"#7bce9d","property"],["Мегаполіс",3200,"#7bce9d","property"],["Метрополітен",2000,"#f0b761","rail"],["Шанс",0,"#f9df73","chance"],["Урядовий квартал",3500,"#7fa8ef","property"],["Скарбниця",0,"#e9d67e","chest"],["Столичний центр",4000,"#7fa8ef","property"]].map((r,k)=>({o:k,name:r[0],price:r[1],color:r[2],type:r[3]})),isO=c=>['property','rail','utility'].includes(c.type);
+// Вокзал перенесено вліво на позицію замість Сонячного кварталу
+const RAW=[["СТАРТ",0,"#fff0b6","start"],["Старе місто",600,"#d8a4ee","property"],["Квіткова вулиця",600,"#d8a4ee","property"],["Шанс",0,"#f9df73","chance"],["Вокзал",2000,"#f0b761","rail"],["Сонячний квартал",1000,"#74c4e7","property"],["Річкова набережна",1000,"#74c4e7","property"],["Зелений парк",1200,"#74c4e7","property"],["Податок",0,"#ef7777","tax"],["Міська ратуша",1400,"#e3a9ce","property"],["ВІЗИТ",0,"#fff0b6","visit"],["Карпатський край",1600,"#e3a9ce","property"],["Лісова долина",1600,"#e3a9ce","property"],["Електростанція",1500,"#eac777","utility"],["Гірське село",1800,"#e3a9ce","property"],["Морська гавань",1800,"#e8aa71","property"],["Автовокзал",2000,"#f0b761","rail"],["Курортний берег",2000,"#e8aa71","property"],["Скарбниця",0,"#e9d67e","chest"],["Південний порт",2200,"#e8aa71","property"],["ПАРКОВКА",0,"#fff0b6","parking"],["Технопарк",2200,"#ef7d8b","property"],["Шанс",0,"#f9df73","chance"],["Індустріальний парк",2200,"#ef7d8b","property"],["Промисловий вузол",2400,"#ef7d8b","property"],["Аеропорт",2000,"#f0b761","rail"],["Культурна площа",2600,"#f2d16d","property"],["Театральний квартал",2600,"#f2d16d","property"],["Водоканал",1500,"#eac777","utility"],["Мистецький центр",2800,"#f2d16d","property"],["ПЕРЕХІД",0,"#fff0b6","jail"],["Золотий проспект",3000,"#7bce9d","property"],["Столичний збір",0,"#ef7777","tax"],["Ділова вежа",3000,"#7bce9d","property"],["Мегаполіс",3200,"#7bce9d","property"],["Метрополітен",2000,"#f0b761","rail"],["Шанс",0,"#f9df73","chance"],["Урядовий квартал",3500,"#7fa8ef","property"],["Скарбниця",0,"#e9d67e","chest"],["Столичний центр",4000,"#7fa8ef","property"]].map((r,k)=>({o:k,name:r[0],price:r[1],color:r[2],type:r[3]})),isO=c=>['property','rail','utility'].includes(c.type);
 const CELLS=(()=>{const cr=['start','visit','parking','jail'].map(k=>RAW.find(c=>c.type==k)),rest=RAW.filter(c=>!cr.includes(c)),out=[],pos={0:cr[0],8:cr[1],20:cr[2],28:cr[3]};let q=0;for(let i=0;i<40;i++)out.push(Object.assign({i},pos[i]||rest[q++]));return out})();
 const IM={};
 const noE=s=>String(s||'').replace(/\s+/g,' ').trim(),esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-CELLS.forEach(c=>{const im=new Image();im.onload=()=>{IM[c.i]=im};im.src='tiles/'+c.o+'.png'});
+// Швидке неблокуюче завантаження картинок клітинок
+CELLS.forEach(c=>{
+  const im=new Image();
+  im.decoding='async';
+  im.onload=()=>{IM[c.i]=im};
+  im.onerror=()=>{};
+  im.src='tiles/'+c.o+'.png';
+});
 const cv=$('c'),x=cv.getContext('2d'),FN='"Nunito",system-ui,sans-serif';
 let W,H,DPR,U,HL,CS,tw,th,BY=88,ix,iy,iw,ih,ixL,iyL,iwL,ihL;
 function fit(){
@@ -114,18 +122,17 @@ else if(k=='park'){x.fillStyle='#2f7fd6';x.beginPath();x.arc(cx,cy,.42*s,0,7);x.
 else if(k=='siren'){rr(cx-.34*s,cy+.16*s,.68*s,.22*s,2,'#555');x.fillStyle='#e53935';x.beginPath();x.arc(cx,cy+.16*s,.3*s,Math.PI,0);x.fill();x.strokeStyle='#7a1010';x.lineWidth=1.2;x.stroke();x.fillStyle='#ffffff88';x.fillRect(cx-.12*s,cy-.08*s,.07*s,.2*s)}
 x.restore()}
 
-// Збільшені зображення та іконки всередині клітинок
 function pic(cell,k,cx,cy,cw,ch,col){
   const im=IM[cell.i];
-  const pad=3;
+  const pad=2;
   const maxW=Math.max(10,cw-pad*2);
   const maxH=Math.max(10,ch-pad*2);
-  if(im){
-    const q=Math.min(maxW/im.width,maxH/im.height);
-    const dw=im.width*q,dh=im.height*q;
+  if(im&&im.complete&&im.naturalWidth>0){
+    const q=Math.min(maxW/im.naturalWidth,maxH/im.naturalHeight);
+    const dw=im.naturalWidth*q,dh=im.naturalHeight*q;
     x.drawImage(im,cx-dw/2,cy-dh/2,dw,dh);
   }else{
-    ico(k,cx,cy,Math.min(maxW,maxH)*.95,col);
+    ico(k,cx,cy,Math.min(maxW,maxH)*.98,col);
   }
 }
 
@@ -238,18 +245,10 @@ function syncAuctionUi(au,me,can){
   const minBid=Math.max(au.min||50,(au.bid||0)+50);
   const maxBid=Math.max(minBid,Math.floor(me.balance/50)*50);
   const key=au.i+':'+(au.bid||0)+':'+minBid+':'+maxBid;
-  sl.min=minBid;
-  sl.max=maxBid;
-  sl.step=50;
-  if(key!==aucLastKey){
-    aucLastKey=key;
-    aucDraft=minBid;
-    sl.value=aucDraft;
-  }
+  sl.min=minBid;sl.max=maxBid;sl.step=50;
+  if(key!==aucLastKey){aucLastKey=key;aucDraft=minBid;sl.value=aucDraft}
   const curVal=Math.min(maxBid,Math.max(minBid,Number(sl.value)||minBid));
-  aucDraft=curVal;
-  val.textContent=curVal+'';
-  btn.disabled=me.balance<curVal;
+  aucDraft=curVal;val.textContent=curVal+'';btn.disabled=me.balance<curVal;
 }
 
 function upd(){if(!g)return;if(D&&!dDone()){D.forEach(step);coll()}
@@ -389,13 +388,13 @@ const SCALE=[261.6,293.7,329.6,392,440,523.3,587.3];
 function musStart(){if(musT||!MUS)return;musT=setInterval(()=>{if(!MUS||!SND)return;const f=SCALE[Math.random()*SCALE.length|0]*(Math.random()<.3?.5:1);snd(f,1.6,'sine');if(Math.random()<.4)setTimeout(()=>snd(f*1.5,1.1,'sine'),300)},1000)}
 function musStop(){clearInterval(musT);musT=null}
 const sv=(k,v)=>{try{localStorage.setItem(k,v)}catch(e){}};
-const AV={};function av(u){if(!/^https:\/\//.test(u||''))return null;if(!AV[u]){const im=new Image();im.referrerPolicy='no-referrer';im.onload=()=>{im.ok=1};im.src=u;AV[u]=im}return AV[u].ok?AV[u]:null}
+const AV={};function av(u){if(!/^https:\/\//.test(u||''))return null;if(!AV[u]){const im=new Image();im.referrerPolicy='no-referrer';im.decoding='async';im.onload=()=>{im.ok=1};im.src=u;AV[u]=im}return AV[u].ok?AV[u]:null}
 const SPECD={chance:'Витягни картку «Шанс»: гроші, штраф, переміщення.',chest:'Витягни картку скарбниці.',tax:'Сплати податок. Гроші йдуть у банк стоянки.',start:'Проходячи СТАРТ отримуєш зарплату.',visit:'Просто відвідини в’язниці.',parking:'Забери накопичений банк стоянки.',jail:'Іди у в’язницю.'};
 function tiRender(){const m=$('ti');if(sel==null||!g||g.status!='playing'){m.classList.add('hid');return}const c=CELLS[sel],o=g.owners&&g.owners[sel],own=o?g.players[o]:null,oi=o?g.order.indexOf(o):-1,im=IM[c.i];
 let h='<div class="tb"><div class="th">'+(im?'<img src="'+im.src+'">':'')+'<span class="dot big" style="background:'+(isO(c)?c.color:'#999')+'"></span><h2>'+esc(noE(c.name))+'</h2></div>';
 if(isO(c)){h+='<table class="rt"><tr><td>Ціна</td><td>'+c.price+'</td></tr><tr><td>Власник</td><td>'+(own?'<b style="color:'+COL[oi%6]+'">'+esc(noE(own.name))+'</b>':'вільна')+(isMg(g,sel)?' · застава':'')+'</td></tr>';
 if(c.type=='property'){const b=Math.round(c.price*.12);h+='<tr><td>Оренда</td><td>'+b+'</td></tr><tr><td>Весь набір</td><td>'+b*2+'</td></tr>'+[3,5,8,12,18].map((k,i)=>'<tr><td>'+(i<4?'★'.repeat(i+1):'Готель')+'</td><td>'+b*k+'</td></tr>').join('')+'<tr><td>Будівництво</td><td>'+hcost(c)+' / рівень</td></tr>'+(hsOf(g,sel)?'<tr><td>Збудовано</td><td>'+hsOf(g,sel)+' / 5</td></tr>':'')}
-else if(c.type=='rail'){const b=Math.round(c.price*.125);h+='<tr><td>1 / 2 / 3 / 4 аеропорти</td><td>'+[b,b*2,b*4,b*8].join(' / ')+'</td></tr>'}
+else if(c.type=='rail'){const b=Math.round(c.price*.125);h+='<tr><td>1 / 2 / 3 / 4 станції</td><td>'+[b,b*2,b*4,b*8].join(' / ')+'</td></tr>'}
 else h+='<tr><td>Оренда</td><td>кубики ×40 (обидва ×100)</td></tr>';h+='</table>'}else h+='<p>'+esc(SPECD[c.type]||'')+'</p>';
 const mine=o===uid&&cur(g)==uid&&!anim()&&g.phase!='auction';let bt='';
 if(mine){if(canBuild(g,uid,sel))bt+='<button data-a="build">Збудувати −'+hcost(c)+'</button>';if(canSell(g,uid,sel))bt+='<button class="b" data-a="sell">Продати будинок +'+Math.round(hcost(c)/2)+'</button>';if(isO(c)&&!hsOf(g,sel))bt+='<button class="b" data-a="mort">'+(isMg(g,sel)?'Викупити −'+Math.round(c.price*.55):'Заставити +'+Math.round(c.price/2))+'</button>'}
